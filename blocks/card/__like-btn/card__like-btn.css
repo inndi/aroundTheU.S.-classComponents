@@ -1,0 +1,12 @@
+.card__like-btn {
+  grid-area: like-btn;
+  background-color: #fff;
+  border: none;
+  background: url('../../../images/like_disabled.svg') center no-repeat;
+  background-size: 100%;
+  cursor: pointer;
+  height: 19px;
+  width: 21px;
+  align-self: center;
+  margin: 30px 18px 30px 0;
+}

@@ -1,0 +1,11 @@
+.card {
+  max-width: 282px;
+  max-height: 361px;
+  background: #fff;
+  border-radius: 13px 13px 10px 10px ;
+  display: grid;
+  grid-template-areas: 
+  'image image'
+  'title like-btn';
+  grid-template-columns: 1fr auto;
+}
