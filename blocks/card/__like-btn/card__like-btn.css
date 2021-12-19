@@ -10,3 +10,7 @@
   align-self: center;
   margin: 30px 18px 30px 0;
 }
+
+.card__like-btn:active {
+  background: url('../../../images/like__active.svg') center no-repeat;
+}
