@@ -1,0 +1,8 @@
+.profile__profession {
+  margin: 0;
+  grid-area: profession;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 1.22;
+  color: #fff;
+}

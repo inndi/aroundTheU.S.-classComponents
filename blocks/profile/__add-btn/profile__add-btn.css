@@ -1,0 +1,9 @@
+.profile__add-btn {
+  grid-area: add-btn;
+  width: 150px;
+  height: 50px;
+  background-color: #000;
+  border: 1px solid #fff;
+  align-self: center;
+  cursor: pointer;
+}

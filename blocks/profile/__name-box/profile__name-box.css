@@ -1,0 +1,4 @@
+.profile__name-box {
+  grid-area: name-box;
+  display: flex;
+}
