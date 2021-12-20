@@ -1,0 +1,12 @@
+.popup__close-btn {
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  transform: rotate(45deg);
+  cursor: pointer;
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  padding: 0;
+  border: none;
+}

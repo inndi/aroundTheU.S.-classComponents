@@ -13,6 +13,15 @@
 @import url('../blocks/profile/__profession/profile__profession.css');
 @import url('../blocks/profile/__add-btn/profile__add-btn.css');
 @import url('../blocks/profile/__add-img/profile__add-img.css');
+@import url('../blocks/profile/__edit-popup/profile__edit-popup.css');
+@import url('../blocks/popup/popup.css');
+@import url('../blocks/popup/__container/popup__container.css');
+@import url('../blocks/popup/__title/popup__title.css');
+@import url('../blocks/popup/__name/popup__name.css');
+@import url('../blocks/popup/__profession/popup__profession.css');
+@import url('../blocks/popup/__save-btn/popup__save-btn.css');
+@import url('../blocks/popup/__close-btn/popup__close-btn.css');
+@import url('../blocks/popup/__close-img/popup__close-img.css');
 @import url('../blocks/hover-btn/hover-btn.css');
 @import url('../blocks/cards/cards.css');
 @import url('../blocks/cards/__list/cards__list.css');
