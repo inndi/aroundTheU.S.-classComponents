@@ -6,3 +6,9 @@
   margin-top: 30px;
   padding: 0;
 }
+
+@media screen and (max-width: 631px) {
+  .popup__profession {
+    max-width: 238px;
+  }
+}
