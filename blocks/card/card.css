@@ -8,4 +8,5 @@
   'image image'
   'title like-btn';
   grid-template-columns: 1fr auto;
+  justify-self: center;
 }
