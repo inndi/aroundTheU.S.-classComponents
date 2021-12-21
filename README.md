@@ -1,16 +1,35 @@
-# Project 4: Around The U.S.
+# **Around The U.S.**
 
-### Overview
+**Around The U.S.** is a social page where you can find and appreciate the extraordinary sights of the United States.
 
-* Figma
-* Images
+## Features
 
-**Figma**
 
-* [Link to the project in Figma](https://www.figma.com/file/SurN1jaeEQIhuZEDMhmWWf/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
+* find the extraordinary attractions of the United States.
+* the opportunity to appreciate the extraordinary attractions with "Like" button.
+* the opportunity to edit name and information of profile.
+* suitable for gadgets with any resolution.
 
-**Images**
+## Technologies used:
 
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
+* HTML
+* CSS
+* JS
 
-Have fun with JavaScript!
+___
+
+## Add demo
+
+* [Around The U.S. link]()
+
+
+## Running this project locally
+### *From the repo:*
+
+* Clone this project locally
+* Open ```index.html``` file using a browser
+___
+
+## Plans
+ * create abilities to add new attractions using JavaScript. 
+ * create the ability to delete an attraction using JavaScript. 
