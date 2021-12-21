@@ -8,15 +8,22 @@
   flex-direction: column;
   position: relative;
   position: fixed;
-  left: calc(50% - 215px);
+  left: calc(50% - 234px);
   top: calc(50% - 175px);
+  margin: 0 19px;
 }
 
 @media screen and (max-width: 631px) {
   .popup__container {
     max-width: 282px;
     padding: 25px 22px;
-    left: calc(50% - 141px);
-    /* top: calc(50% - 175px); */
+    left: calc(50% - 160px);
+    top: calc(50% - 164px);
+  }
+}
+
+@media screen and (max-width: 334px) {
+  .popup__container {
+    left: 0;
   }
 }

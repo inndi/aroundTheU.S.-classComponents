@@ -18,21 +18,23 @@
       <img src="./images/profile-photo.jpg" alt="photo of Jacques Cousteau" class="profile__photo">
       <div class="profile__name-box">
         <h1 class="profile__name">Jacques Cousteau</h1>
-        <button class="profile__edit-btn hover-btn">
+        <button class="profile__edit-btn hover-btn" type="button">
           <img src="./images/edit.svg" alt="a pencil" class="profile__edit-img">
         </button>
       </div>
-      <p class="profile__profession">Explorer</p>
-      <button class="profile__add-btn hover-btn">
+      <p class="profile__about-me">Explorer</p>
+      <button class="profile__add-btn hover-btn" type="button">
         <img src="./images/plus.svg" alt="a plus symbol" class="profile__add-img">
       </button>
       <div class="profile__edit-popup popup">
         <div class="popup__container">
           <h2 class="popup__title">Edit profile</h2>
-          <input type="text" class="popup__name">
-          <input type="text" class="popup__profession">
-          <button class="popup__save-btn">Save</button>
-          <button class="popup__close-btn hover-btn">
+          <form class="popup__form" name="register">
+            <input type="text" placeholder="Name" class="popup__name">
+            <input type="text" placeholder="About me" class="popup__about-me">
+            <button class="popup__save-btn" type="submit">Save</button>
+          </form>
+          <button class="popup__close-btn hover-btn" type="button">
             <img src="./images/plus.svg" alt="a close symbol" class="popup__close-img">
           </button>
         </div>
@@ -43,32 +45,32 @@
         <li class="cards__item card">
           <img src="./images/card_yosemite-valley.png" alt="river surrounded by forest and mountains" class="card__img">
           <h2 class="card__title">Yosemite Valley</h2>
-          <button class="card__like-btn hover-btn"></button>
+          <button class="card__like-btn hover-btn" type="button"></button>
         </li>
         <li class="cards__item card">
           <img src="./images/card_lake-louise.png" alt="lake surrounded by mountains" class="card__img">
           <h2 class="card__title">Lake Louise</h2>
-          <button class="card__like-btn hover-btn"></button>
+          <button class="card__like-btn hover-btn" type="button"></button>
         </li>
         <li class="cards__item card">
           <img src="./images/card_bald-mountains.png" alt="mountains at sunset" class="card__img">
           <h2 class="card__title">Bald Mountains</h2>
-          <button class="card__like-btn hover-btn"></button>
+          <button class="card__like-btn hover-btn" type="button"></button>
         </li>
         <li class="cards__item card">
           <img src="./images/card_latemar.png" alt="mountains with millions of stars above" class="card__img">
           <h2 class="card__title">Latemar</h2>
-          <button class="card__like-btn hover-btn"></button>
+          <button class="card__like-btn hover-btn" type="button"></button>
         </li>
         <li class="cards__item card">
           <img src="./images/card_vanoise-national.png" alt="lake surrounded by mountains" class="card__img">
           <h2 class="card__title">Vanoise National Park</h2>
-          <button class="card__like-btn hover-btn"></button>
+          <button class="card__like-btn hover-btn" type="button"></button>
         </li>
         <li class="cards__item card">
           <img src="./images/card_lago-di-baries.png" alt="pier by the lake surrounded by mountains" class="card__img">
           <h2 class="card__title">Lago di Braies</h2>
-          <button class="card__like-btn hover-btn"></button>
+          <button class="card__like-btn hover-btn" type="button"></button>
         </li>
       </ul>
     </section>
@@ -76,7 +78,7 @@
   <footer class="footer">
     <p class="footer__copyright">&copy; 2021 Around The U.S.</p>
   </footer>
-  <script src="./index.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 
 </html>

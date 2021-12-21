@@ -1,4 +1,4 @@
-.profile__profession {
+.profile__about-me {
   margin: 0;
   grid-area: profession;
   font-weight: normal;
@@ -8,7 +8,7 @@
 }
 
 @media screen and (max-width: 631px) {
-  .profile__profession {
+  .profile__about-me {
     font-size: 14px;
     padding-top: 14px;
   }
