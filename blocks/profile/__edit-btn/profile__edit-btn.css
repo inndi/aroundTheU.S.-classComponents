@@ -4,6 +4,9 @@
   height: 24px;
   background-color: #000;
   border: 1px solid #fff;
+  background-image: url('../../../images/edit.svg');
+  background-repeat: no-repeat;
+  background-position: center;
   align-self: flex-end;
   margin: 0 18px 9px;
   cursor: pointer;
@@ -18,5 +21,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-size: 50%;
   }
 }

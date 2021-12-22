@@ -2,6 +2,10 @@
   background-color: transparent;
   width: 40px;
   height: 40px;
+  background-image: url('../../../images/plus.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
   transform: rotate(45deg);
   cursor: pointer;
   position: absolute;

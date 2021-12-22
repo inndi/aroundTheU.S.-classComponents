@@ -18,27 +18,10 @@
       <img src="./images/profile-photo.jpg" alt="photo of Jacques Cousteau" class="profile__photo">
       <div class="profile__name-box">
         <h1 class="profile__name">Jacques Cousteau</h1>
-        <button class="profile__edit-btn hover-btn" type="button">
-          <img src="./images/edit.svg" alt="a pencil" class="profile__edit-img">
-        </button>
+        <button class="profile__edit-btn hover-btn" type="button"></button>
       </div>
       <p class="profile__about-me">Explorer</p>
-      <button class="profile__add-btn hover-btn" type="button">
-        <img src="./images/plus.svg" alt="a plus symbol" class="profile__add-img">
-      </button>
-      <div class="profile__edit-popup popup">
-        <div class="popup__container">
-          <h2 class="popup__title">Edit profile</h2>
-          <form class="popup__form" name="register">
-            <input type="text" placeholder="Name" class="popup__name">
-            <input type="text" placeholder="About me" class="popup__about-me">
-            <button class="popup__save-btn" type="submit">Save</button>
-          </form>
-          <button class="popup__close-btn hover-btn" type="button">
-            <img src="./images/plus.svg" alt="a close symbol" class="popup__close-img">
-          </button>
-        </div>
-      </div>
+      <button class="profile__add-btn hover-btn" type="button"></button>
     </section>
     <section class="cards">
       <ul class="cards__list">
@@ -78,6 +61,17 @@
   <footer class="footer">
     <p class="footer__copyright">&copy; 2021 Around The U.S.</p>
   </footer>
+  <div class="popup">
+    <div class="popup__container">
+      <h2 class="popup__title">Edit profile</h2>
+      <form class="popup__form" name="register">
+        <input type="text" name="profile-name" placeholder="Name" class="popup__input popup__input_field_name">
+        <input type="text" name="profile-about" placeholder="About me" class="popup__input popup__input_field_about-me">
+        <button class="popup__save-btn" type="submit">Save</button>
+      </form>
+      <button class="popup__close-btn hover-btn" type="button"></button>
+    </div>
+  </div>
   <script src="./scripts/index.js"></script>
 </body>
 
