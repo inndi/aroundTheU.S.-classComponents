@@ -1,4 +1,5 @@
 .profile__add-btn {
+  padding: 0;
   grid-area: add-btn;
   width: 150px;
   height: 50px;
