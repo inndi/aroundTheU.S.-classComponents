@@ -29,9 +29,6 @@ function hiddenPopup() {
   }
 }
 
-editButton.addEventListener("click", renderPopup);
-closeButton.addEventListener("click", hiddenPopup);
-
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
 
@@ -41,4 +38,6 @@ function handleProfileFormSubmit(evt) {
   hiddenPopup();
 }
 
+editButton.addEventListener("click", renderPopup);
+closeButton.addEventListener("click", hiddenPopup);
 popupForm.addEventListener('submit', handleProfileFormSubmit);
