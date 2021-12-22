@@ -6,24 +6,24 @@
   padding: 34px 36px 37px;
   display: flex;
   flex-direction: column;
-  position: relative;
   position: fixed;
-  left: calc(50% - 234px);
-  top: calc(50% - 175px);
-  margin: 0 19px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @media screen and (max-width: 631px) {
   .popup__container {
     max-width: 282px;
     padding: 25px 22px;
-    left: calc(50% - 160px);
-    top: calc(50% - 164px);
   }
 }
 
 @media screen and (max-width: 334px) {
   .popup__container {
+    margin: 0 19px;
     left: 0;
+    top: 50%;
+    transform: translate( 0, -50%);
   }
 }
