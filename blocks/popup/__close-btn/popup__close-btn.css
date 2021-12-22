@@ -9,6 +9,7 @@
   right: -40px;
   padding: 0;
   border: none;
+  transition: opacity 0.2s linear;
 }
 
 @media screen and (max-width: 631px) {

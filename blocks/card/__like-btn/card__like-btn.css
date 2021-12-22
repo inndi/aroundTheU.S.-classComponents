@@ -9,6 +9,7 @@
   width: 21px;
   align-self: center;
   margin: 30px 18px 30px 0;
+  transition: opacity 0.2s linear;
 }
 
 .card__like-btn:active {
