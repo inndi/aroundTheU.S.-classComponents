@@ -11,18 +11,22 @@ const closeButton = popupBox.querySelector(".popup__close-btn");
 
 function renderPopup() {
   popupBox.classList.add("popup_opened");
-  if (profileName.textContent !== 0) {
+  if (profileName.textContent != 0) {
     fieldName.value = profileName.textContent;
   }
-  if (profileInfo.textContent !== 0) {
+  if (profileInfo.textContent != 0) {
     fieldAboutMe.value = profileInfo.textContent;
   }
 }
 
 function hiddenPopup() {
   popupBox.classList.remove("popup_opened");
-  fieldName.value = fieldName.ariaPlaceholder;
-  fieldAboutMe.value = fieldAboutMe.ariaPlaceholder;
+  if (profileName.textContent == 0) {
+    fieldName.value = fieldName.ariaPlaceholder;
+  }
+  if (profileInfo.textContent == 0) {
+    fieldAboutMe.value = fieldAboutMe.ariaPlaceholder;
+  }
 }
 
 editButton.addEventListener("click", renderPopup);
