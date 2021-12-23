@@ -65,8 +65,10 @@
     <div class="popup__container">
       <h2 class="popup__title">Edit profile</h2>
       <form class="popup__form" name="register">
-        <input type="text" name="profile-name" placeholder="Name" class="popup__input popup__input_field_name">
-        <input type="text" name="profile-about" placeholder="About me" class="popup__input popup__input_field_about-me">
+        <input type="text" name="profile-name" placeholder="Name" autocomplete="off"
+          class="popup__input popup__input_field_name">
+        <input type="text" name="profile-about" placeholder="About me" autocomplete="off"
+          class="popup__input popup__input_field_about-me">
         <button class="popup__save-btn" type="submit">Save</button>
       </form>
       <button class="popup__close-btn hover-btn" type="button"></button>

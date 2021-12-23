@@ -5,22 +5,15 @@
   line-height: 1.14;
   color: #fff;
   align-self: flex-end;
-  /* text-overflow: ellipsis;
+  text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden; */
-}
-
-@media screen and (max-width: 800px) {
-  .profile__name {
-    width: min-content;
-  }
+  overflow: hidden;
 }
 
 @media screen and (max-width: 631px) {
   .profile__name {
     font-size: 22px;
     line-height: 1.22;
-    width: auto;
     padding-top: 30px;
   }
 }
