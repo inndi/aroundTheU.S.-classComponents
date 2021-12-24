@@ -13,7 +13,13 @@
   transition: opacity 0.2s linear;
 }
 
-@media screen and (max-width: 631px) {
+@media screen and (max-width: 920px) {
+  .profile__edit-btn {
+    margin: 0 18px 6px;
+  }
+}
+
+@media screen and (max-width: 780px) {
   .profile__edit-btn {
     min-width: 18px;
     min-height: 18px;

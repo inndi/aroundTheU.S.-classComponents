@@ -3,7 +3,7 @@
   display: flex;
 }
 
-@media screen and (max-width: 631px) {
+@media screen and (max-width: 780px) {
   .profile__name-box {
     max-width: 282px;
   }

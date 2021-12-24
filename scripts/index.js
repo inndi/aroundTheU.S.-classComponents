@@ -20,7 +20,7 @@ function renderPopup() {
   }
 }
 
-function hiddenPopup() {
+function hidePopup() {
   popupBox.classList.remove("popup_opened");
   if (profileName.textContent == 0) {
     fieldName.value = fieldName.ariaPlaceholder;
@@ -36,9 +36,9 @@ function handleProfileFormSubmit(evt) {
   profileName.textContent = fieldName.value;
   profileInfo.textContent = fieldAboutMe.value;
 
-  hiddenPopup();
+  hidePopup();
 }
 
 editButton.addEventListener("click", renderPopup);
-closeButton.addEventListener("click", hiddenPopup);
+closeButton.addEventListener("click", hidePopup);
 popupForm.addEventListener('submit', handleProfileFormSubmit);

@@ -6,3 +6,11 @@
   grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
   grid-gap: 20px 17px;
 }
+
+@media screen and (max-width: 920px) {
+  .cards__list {
+    grid-template-columns: repeat(auto-fit, 282px);
+    grid-gap: 20px 40px;
+    justify-content: center;
+  }
+}
