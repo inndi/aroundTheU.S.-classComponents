@@ -1,4 +1,5 @@
 const body = document.querySelector('.page');
+
 const profile = body.querySelector('.profile');
 const profileName = profile.querySelector('.profile__name');
 const profileInfo = profile.querySelector('.profile__about-me');
@@ -77,12 +78,6 @@ const initialCards = [
 //   }
 // }
 
-// function renderPopup() {
-//   popupBox.classList.toggle('popup_opened');
-//   if (field.textContent == 0) {
-//     field.value = field.ariaPlaceholder;
-//   }
-// }
 
 
 
@@ -148,6 +143,11 @@ function createCard(cardData) {
   likeButton.addEventListener('click', function (evt) {
     evt.target.classList.toggle('card__like-btn_active');
   });
+
+  const deleteButton = cardElement.querySelector('.card__delete-btn');
+  deleteButton.addEventListener('click', function () {
+    cardElement.remove();
+  })
 
   cardsList.prepend(cardElement);
 }
