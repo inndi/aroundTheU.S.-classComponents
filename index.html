@@ -31,7 +31,7 @@
   <footer class="footer">
     <p class="footer__copyright">&copy; 2021 Around The U.S.</p>
   </footer>
-  <div class="popup">
+  <div class="popup popup_edit">
     <div class="popup__container">
       <h2 class="popup__title">Edit profile</h2>
       <form class="popup__form" name="register">
@@ -44,6 +44,24 @@
       <button class="popup__close-btn hover-btn" type="button"></button>
     </div>
   </div>
+
+
+  <div class="popup popup_add">
+    <div class="popup__container">
+      <h2 class="popup__title">New place</h2>
+      <form class="popup__form" name="register">
+        <input type="text" name="place-title" placeholder="Title" autocomplete="off"
+          class="popup__input popup__input_field_title">
+        <input type="text" name="place-link" placeholder="Image link" autocomplete="off"
+          class="popup__input popup__input_field_link">
+        <button class="popup__save-btn" type="submit">Create</button>
+      </form>
+      <button class="popup__close-btn hover-btn" type="button"></button>
+    </div>
+  </div>
+
+
+
   <template id="card-template">
     <li class="card">
       <img src="" alt="a landscape" class="card__img">
