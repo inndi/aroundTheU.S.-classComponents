@@ -25,6 +25,7 @@ const closeAddButton = popupAdd.querySelector('.popup__close-btn');
 // const fields = popupBox.querySelectorAll('.popup__input');
 
 const cardsList = body.querySelector('.cards__list');
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -51,6 +52,8 @@ const initialCards = [
     link: "https://code.s3.yandex.net/web-code/lago.jpg"
   }
 ];
+
+
 
 
 
@@ -141,6 +144,11 @@ function createCard(cardData) {
   cardElement.querySelector('.card__title').textContent = cardData.name;
   cardElement.querySelector('.card__img').src = cardData.link;
 
+  const likeButton = cardElement.querySelector('.card__like-btn');
+  likeButton.addEventListener('click', function (evt) {
+    evt.target.classList.toggle('card__like-btn_active');
+  });
+
   cardsList.prepend(cardElement);
 }
 
@@ -159,8 +167,6 @@ function addNewCard(evt) {
   createCard(card);
   renderPopup(popupAdd);
 }
-
-
 
 
 
