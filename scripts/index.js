@@ -23,15 +23,9 @@ const fieldLink = popupAdd.querySelector('.popup__input_field_link');
 const createCardButton = popupAdd.querySelector('.popup__save-btn');
 const closeAddButton = popupAdd.querySelector('.popup__close-btn');
 
-
-
 const closeCardButton = popupCard.querySelector('.popup__close-btn');
 
-
-// const fields = popupBox.querySelectorAll('.popup__input');
-
 const cardsList = body.querySelector('.cards__list');
-
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -59,83 +53,18 @@ const initialCards = [
   }
 ];
 
-
-
-
-
-// function renderPopup() {
-//   popupBox.classList.add('popup_opened');
-//   if (profileName.textContent != 0) {
-//     fieldName.value = profileName.textContent;
-//   }
-//   if (profileInfo.textContent != 0) {
-//     fieldAboutMe.value = profileInfo.textContent;
-//   }
-// }
-
-// function hidePopup() {
-//   popupBox.classList.remove('popup_opened');
-//   if (profileName.textContent == 0) {
-//     fieldName.value = fieldName.ariaPlaceholder;
-//   }
-//   if (profileInfo.textContent == 0) {
-//     fieldAboutMe.value = fieldAboutMe.ariaPlaceholder;
-//   }
-// }
-
-
-
-
-
-
 function renderPopup(somePopup) {
   somePopup.classList.toggle('popup_opened');
-
-  // fields.forEach((field) => {
-
-  //   if (field.textContent !== 0) {
-  //     field.value = field.textContent;
-  //   };
-  //   if (field.textContent == 0) {
-  //     field.value = field.ariaPlaceholder;
-  //   }
-  // });
 }
-
-
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
 
-  // function check() {
-  //   if (profileName.textContent != 0) {
-  //     fieldName.value = profileName.textContent;
-  //   }
-  //   if (profileInfo.textContent != 0) {
-  //     fieldAboutMe.value = profileInfo.textContent;
-  //   }
-
-  //   if (profileName.textContent == 0) {
-  //     fieldName.value = fieldName.ariaPlaceholder;
-  //   }
-  //   if (profileInfo.textContent == 0) {
-  //     fieldAboutMe.value = fieldAboutMe.ariaPlaceholder;
-  //   }
-
-  // }
-
-  // return check;
-
   profileName.textContent = fieldName.value;
   profileInfo.textContent = fieldAboutMe.value;
 
-
   renderPopup(popupEdit);
 }
-
-
-
-
 
 function createCard(cardData) {
   const cardTemplate = document.querySelector('#card-template').content;
@@ -171,7 +100,6 @@ initialCards.forEach((card) => {
   const cardElement = createCard(card);
 });
 
-
 function addNewCard(evt) {
   evt.preventDefault();
 
@@ -183,14 +111,40 @@ function addNewCard(evt) {
   renderPopup(popupAdd);
 }
 
+editButton.addEventListener('click', () => {
+  renderPopup(popupEdit);
+  if (profileName.textContent != 0) {
+    fieldName.value = profileName.textContent;
+  }
+  if (profileInfo.textContent != 0) {
+    fieldAboutMe.value = profileInfo.textContent;
+  }
+});
 
+closeEditButton.addEventListener('click', () => {
+  renderPopup(popupEdit);
+  if (profileName.textContent == 0) {
+    fieldName.value = fieldName.ariaPlaceholder;
+  }
+  if (profileInfo.textContent == 0) {
+    fieldAboutMe.value = fieldAboutMe.ariaPlaceholder;
+  }
+});
 
-editButton.addEventListener('click', () => { renderPopup(popupEdit) });
-closeEditButton.addEventListener('click', () => { renderPopup(popupEdit) });
 popupEditForm.addEventListener('submit', handleProfileFormSubmit);
 
-addButton.addEventListener('click', () => { renderPopup(popupAdd) });
-closeAddButton.addEventListener('click', () => { renderPopup(popupAdd) });
+addButton.addEventListener('click', () => {
+  renderPopup(popupAdd);
+  fieldTitle.value = fieldTitle.ariaPlaceholder;
+  fieldLink.value = fieldLink.ariaPlaceholder;
+});
+
+closeAddButton.addEventListener('click', () => {
+  renderPopup(popupAdd);
+  fieldTitle.value = fieldTitle.ariaPlaceholder;
+  fieldLink.value = fieldLink.ariaPlaceholder;
+});
+
 popupAddForm.addEventListener('submit', addNewCard);
 
 closeCardButton.addEventListener('click', () => { renderPopup(popupCard) });
