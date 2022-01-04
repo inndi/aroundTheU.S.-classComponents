@@ -156,13 +156,13 @@ function createCard(cardData) {
 
   const imageButton = cardElement.querySelector('.card__img');
   imageButton.addEventListener('click', function () {
-    const popupImage = popupCard.querySelector('.card__img');
-    popupImage.src = imageButton.src;
+    const popupCardImage = popupCard.querySelector('.popup__card-img');
+    const popupCardTitle = popupCard.querySelector('.popup__card-title');
+    popupCardImage.src = cardData.link;
+    popupCardTitle.textContent = cardData.name;
 
     renderPopup(popupCard);
   });
-
-
 
   cardsList.prepend(cardElement);
 }
