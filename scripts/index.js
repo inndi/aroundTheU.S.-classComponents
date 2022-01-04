@@ -53,8 +53,10 @@ const initialCards = [
   }
 ];
 
+
 function renderPopup(somePopup) {
   somePopup.classList.toggle('popup_opened');
+  somePopup.style.transition = 'all 0.3s linear';
 }
 
 function handleProfileFormSubmit(evt) {
@@ -142,7 +144,7 @@ addButton.addEventListener('click', () => {
 closeAddButton.addEventListener('click', () => {
   renderPopup(popupAdd);
   fieldTitle.value = fieldTitle.ariaPlaceholder;
-  fieldLink.value = fieldLink.ariaPlaceholder;
+  fieldLink.value = fieldLink.ariaPlaceholder
 });
 
 popupAddForm.addEventListener('submit', addNewCard);

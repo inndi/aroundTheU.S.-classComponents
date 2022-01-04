@@ -1,6 +1,8 @@
 .popup {
-  display: none;
+  visibility: hidden;
+  opacity: 0;
 }
+
 
 .popup::before {
   content: ' ';
