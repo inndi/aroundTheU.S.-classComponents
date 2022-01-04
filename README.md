@@ -32,8 +32,3 @@ ___
 
 * Clone this project locally
 * Open ```index.html``` file using a browser
-___
-
-## Plans
- * create abilities to add new attractions using JavaScript. 
- * create the ability to delete an attraction using JavaScript. 
