@@ -1,14 +1,18 @@
 # **Around The U.S.**
 
-**Around The U.S.** is a social page where you can find and appreciate the extraordinary sights of the United States.
+**Around The U.S.** is a social interactive page with the extraordinary sights of the United States.
 
 ## Features
 
-
+*You can:*
 * find the extraordinary attractions of the United States.
-* the opportunity to appreciate the extraordinary attractions with "Like" button.
-* the opportunity to edit name and information of profile.
-* suitable for gadgets with any resolution.
+* appreciate the extraordinary attractions with "Like" button.
+* edit name and information of profile.
+* add cards with favorite attractions.
+* delete cards of attractions.
+* open the card for detailed view.
+
+Suitable for gadgets with any resolution.
 
 ## Technologies used:
 
