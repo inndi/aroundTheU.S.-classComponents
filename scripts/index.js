@@ -6,7 +6,6 @@ const profileInfo = profile.querySelector('.profile__about-me');
 const editButton = profile.querySelector('.profile__edit-btn');
 const addButton = profile.querySelector('.profile__add-btn');
 
-const popupBox = body.querySelector('.popup');
 const popupEdit = body.querySelector('.popup_edit');
 const popupAdd = body.querySelector('.popup_add');
 const popupCard = body.querySelector('.popup_card');
@@ -24,8 +23,11 @@ const createCardButton = popupAdd.querySelector('.popup__save-btn');
 const closeAddButton = popupAdd.querySelector('.popup__close-btn');
 
 const closeCardButton = popupCard.querySelector('.popup__close-btn');
+const popupCardImage = popupCard.querySelector('.popup__card-img');
+const popupCardTitle = popupCard.querySelector('.popup__card-title');
 
 const cardsList = body.querySelector('.cards__list');
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -53,11 +55,10 @@ const initialCards = [
   }
 ];
 
-
-function renderPopup(somePopup) {
+function togglePopup(somePopup) {
   somePopup.classList.toggle('popup_opened');
-  somePopup.style.transition = 'all 0.3s linear';
 }
+
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -65,15 +66,18 @@ function handleProfileFormSubmit(evt) {
   profileName.textContent = fieldName.value;
   profileInfo.textContent = fieldAboutMe.value;
 
-  renderPopup(popupEdit);
+  togglePopup(popupEdit);
 }
 
 function createCard(cardData) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+  const cardImage = cardElement.querySelector('.card__img');
+  const cardTitle = cardElement.querySelector('.card__title');
 
-  cardElement.querySelector('.card__title').textContent = cardData.name;
-  cardElement.querySelector('.card__img').src = cardData.link;
+  cardTitle.textContent = cardData.name;
+  cardImage.src = cardData.link;
+  cardImage.alt = cardData.name;
 
   const likeButton = cardElement.querySelector('.card__like-btn');
   likeButton.addEventListener('click', function (evt) {
@@ -85,68 +89,48 @@ function createCard(cardData) {
     cardElement.remove();
   })
 
-  const imageButton = cardElement.querySelector('.card__img');
-  imageButton.addEventListener('click', function () {
-    const popupCardImage = popupCard.querySelector('.popup__card-img');
-    const popupCardTitle = popupCard.querySelector('.popup__card-title');
+  cardImage.addEventListener('click', function () {
     popupCardImage.src = cardData.link;
+    popupCardImage.alt = cardData.name;
     popupCardTitle.textContent = cardData.name;
 
-    renderPopup(popupCard);
+    togglePopup(popupCard);
   });
 
+  return cardElement;
+}
+
+function prependCard(cardData) {
+  const cardElement = createCard(cardData);
   cardsList.prepend(cardElement);
 }
 
 initialCards.forEach((card) => {
-  const cardElement = createCard(card);
+  const cardElement = prependCard(card);
 });
 
 function addNewCard(evt) {
   evt.preventDefault();
 
-  let card = {};
+  const card = {};
   card.name = fieldTitle.value;
   card.link = fieldLink.value;
 
-  createCard(card);
-  renderPopup(popupAdd);
+  prependCard(card);
+  togglePopup(popupAdd);
 }
 
 editButton.addEventListener('click', () => {
-  renderPopup(popupEdit);
-  if (profileName.textContent != 0) {
-    fieldName.value = profileName.textContent;
-  }
-  if (profileInfo.textContent != 0) {
-    fieldAboutMe.value = profileInfo.textContent;
-  }
+  togglePopup(popupEdit);
+  fieldName.value = profileName.textContent;
+  fieldAboutMe.value = profileInfo.textContent;
 });
 
-closeEditButton.addEventListener('click', () => {
-  renderPopup(popupEdit);
-  if (profileName.textContent == 0) {
-    fieldName.value = fieldName.ariaPlaceholder;
-  }
-  if (profileInfo.textContent == 0) {
-    fieldAboutMe.value = fieldAboutMe.ariaPlaceholder;
-  }
-});
-
+closeEditButton.addEventListener('click', () => { togglePopup(popupEdit) });
 popupEditForm.addEventListener('submit', handleProfileFormSubmit);
 
-addButton.addEventListener('click', () => {
-  renderPopup(popupAdd);
-  fieldTitle.value = fieldTitle.ariaPlaceholder;
-  fieldLink.value = fieldLink.ariaPlaceholder;
-});
-
-closeAddButton.addEventListener('click', () => {
-  renderPopup(popupAdd);
-  fieldTitle.value = fieldTitle.ariaPlaceholder;
-  fieldLink.value = fieldLink.ariaPlaceholder
-});
-
+addButton.addEventListener('click', () => { togglePopup(popupAdd) });
+closeAddButton.addEventListener('click', () => { togglePopup(popupAdd) });
 popupAddForm.addEventListener('submit', addNewCard);
 
-closeCardButton.addEventListener('click', () => { renderPopup(popupCard) });
+closeCardButton.addEventListener('click', () => { togglePopup(popupCard) });
