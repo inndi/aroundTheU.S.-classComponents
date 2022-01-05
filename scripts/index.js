@@ -119,8 +119,7 @@ function addNewCard(evt) {
   prependCard(card);
   togglePopup(popupAdd);
 
-  fieldTitle.value = fieldTitle.ariaPlaceholder;
-  fieldLink.value = fieldLink.ariaPlaceholder;
+  popupAddForm.reset();
 }
 
 editButton.addEventListener('click', () => {
