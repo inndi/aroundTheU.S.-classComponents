@@ -128,6 +128,10 @@ editButton.addEventListener('click', () => {
   fieldAboutMe.value = profileInfo.textContent;
 });
 
+// function closeThrowOverlay() {
+
+// }
+
 closeEditButton.addEventListener('click', () => { togglePopup(popupEdit) });
 popupEditForm.addEventListener('submit', handleProfileFormSubmit);
 
