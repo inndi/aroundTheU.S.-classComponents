@@ -55,10 +55,32 @@ const initialCards = [
   }
 ];
 
-function togglePopup(somePopup) {
-  somePopup.classList.toggle('popup_opened');
+function closePopupOnOutsideClick(evt) {
+  const modal = document.querySelector('.popup_opened');
+  if (evt.target.classList.contains('popup_opened')) {
+    modal.classList.remove('popup_opened');
+  };
 }
 
+function closePopupOnEscKeydown(evt) {
+  const modal = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    modal.classList.remove('popup_opened');
+  };
+}
+
+function togglePopup(somePopup) {
+  if (somePopup.classList.contains('popup_opened')) {
+    document.removeEventListener('mousedown', closePopupOnOutsideClick);
+    document.removeEventListener('keydown', closePopupOnEscKeydown);
+  }
+  else {
+    document.addEventListener('mousedown', closePopupOnOutsideClick);
+    document.addEventListener('keydown', closePopupOnEscKeydown);
+  };
+
+  somePopup.classList.toggle('popup_opened');
+}
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -132,7 +154,7 @@ closeEditButton.addEventListener('click', () => { togglePopup(popupEdit) });
 popupEditForm.addEventListener('submit', handleProfileFormSubmit);
 
 addButton.addEventListener('click', () => { togglePopup(popupAdd) });
-closeAddButton.addEventListener('click', () => { togglePopup(popupAdd) });
+closeAddButton.addEventListener('click', () => { togglePopup(popupAdd); });
 popupAddForm.addEventListener('submit', addNewCard);
 
 closeCardButton.addEventListener('click', () => { togglePopup(popupCard) });
