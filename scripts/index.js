@@ -71,11 +71,11 @@ function closePopupOnEscKeydown(evt) {
 
 function togglePopup(somePopup) {
   if (somePopup.classList.contains('popup_opened')) {
-    document.removeEventListener('click', closePopupOnOutsideClick);
+    document.removeEventListener('mousedown', closePopupOnOutsideClick);
     document.removeEventListener('keydown', closePopupOnEscKeydown);
   }
   else {
-    document.addEventListener('click', closePopupOnOutsideClick);
+    document.addEventListener('mousedown', closePopupOnOutsideClick);
     document.addEventListener('keydown', closePopupOnEscKeydown);
   };
 
@@ -150,12 +150,11 @@ editButton.addEventListener('click', () => {
   fieldAboutMe.value = profileInfo.textContent;
 });
 
-
 closeEditButton.addEventListener('click', () => { togglePopup(popupEdit) });
 popupEditForm.addEventListener('submit', handleProfileFormSubmit);
 
 addButton.addEventListener('click', () => { togglePopup(popupAdd) });
-closeAddButton.addEventListener('click', () => { togglePopup(popupAdd) });
+closeAddButton.addEventListener('click', () => { togglePopup(popupAdd); });
 popupAddForm.addEventListener('submit', addNewCard);
 
 closeCardButton.addEventListener('click', () => { togglePopup(popupCard) });
