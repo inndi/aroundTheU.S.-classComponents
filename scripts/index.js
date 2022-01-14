@@ -55,10 +55,32 @@ const initialCards = [
   }
 ];
 
-function togglePopup(somePopup) {
-  somePopup.classList.toggle('popup_opened');
+function closePopupOnOutsideClick(evt) {
+  const modal = document.querySelector('.popup_opened');
+  if (evt.target.classList.contains('popup_opened')) {
+    modal.classList.remove('popup_opened');
+  };
 }
 
+function closePopupOnEscKeydown(evt) {
+  const modal = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    modal.classList.remove('popup_opened');
+  };
+}
+
+function togglePopup(somePopup) {
+  if (somePopup.classList.contains('popup_opened')) {
+    document.removeEventListener('click', closePopupOnOutsideClick);
+    document.removeEventListener('keydown', closePopupOnEscKeydown);
+  }
+  else {
+    document.addEventListener('click', closePopupOnOutsideClick);
+    document.addEventListener('keydown', closePopupOnEscKeydown);
+  };
+
+  somePopup.classList.toggle('popup_opened');
+}
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -128,9 +150,6 @@ editButton.addEventListener('click', () => {
   fieldAboutMe.value = profileInfo.textContent;
 });
 
-// function closeThrowOverlay() {
-
-// }
 
 closeEditButton.addEventListener('click', () => { togglePopup(popupEdit) });
 popupEditForm.addEventListener('submit', handleProfileFormSubmit);
