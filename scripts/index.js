@@ -6,6 +6,8 @@ const profileInfo = profile.querySelector('.profile__about-me');
 const editButton = profile.querySelector('.profile__edit-btn');
 const addButton = profile.querySelector('.profile__add-btn');
 
+const popups = body.querySelectorAll('.popup');
+
 const popupEdit = body.querySelector('.popup_edit');
 const popupAdd = body.querySelector('.popup_add');
 const popupCard = body.querySelector('.popup_card');
@@ -13,7 +15,6 @@ const popupCard = body.querySelector('.popup_card');
 const popupEditForm = popupEdit.querySelector('.popup__form');
 const fieldName = popupEdit.querySelector('.popup__input_field_name');
 const fieldAboutMe = popupEdit.querySelector('.popup__input_field_about-me');
-const saveButton = popupEdit.querySelector('.popup__save-btn');
 const closeEditButton = popupEdit.querySelector('.popup__close-btn');
 
 const popupAddForm = popupAdd.querySelector('.popup__form');
@@ -55,31 +56,38 @@ const initialCards = [
   }
 ];
 
-function closePopupOnOutsideClick(evt) {
-  const modal = document.querySelector('.popup_opened');
-  if (evt.target.classList.contains('popup_opened')) {
-    modal.classList.remove('popup_opened');
-  };
+
+function closePopupOnClick() {
+  popups.forEach((somePopup) => {
+    somePopup.addEventListener('click', (evt) => {
+      if (evt.target.classList.contains('popup_opened')) {
+        closePopup(somePopup);
+      };
+      if (evt.target.classList.contains('popup__close-btn')) {
+        closePopup(somePopup);
+      };
+    });
+  });
 }
 
 function closePopupOnEscKeydown(evt) {
-  const modal = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
-    modal.classList.remove('popup_opened');
+    const modal = document.querySelector('.popup_opened');
+    closePopup(modal);
   };
 }
 
-function togglePopup(somePopup) {
-  if (somePopup.classList.contains('popup_opened')) {
-    document.removeEventListener('mousedown', closePopupOnOutsideClick);
-    document.removeEventListener('keydown', closePopupOnEscKeydown);
-  }
-  else {
-    document.addEventListener('mousedown', closePopupOnOutsideClick);
-    document.addEventListener('keydown', closePopupOnEscKeydown);
-  };
+function openPopup(somePopup) {
+  closePopupOnClick();
+  document.addEventListener('keydown', closePopupOnEscKeydown);
 
-  somePopup.classList.toggle('popup_opened');
+  somePopup.classList.add('popup_opened');
+}
+
+function closePopup(somePopup) {
+  document.removeEventListener('keydown', closePopupOnEscKeydown);
+
+  somePopup.classList.remove('popup_opened');
 }
 
 function handleProfileFormSubmit(evt) {
@@ -88,7 +96,7 @@ function handleProfileFormSubmit(evt) {
   profileName.textContent = fieldName.value;
   profileInfo.textContent = fieldAboutMe.value;
 
-  togglePopup(popupEdit);
+  closePopup(popupEdit);
 }
 
 function createCard(cardData) {
@@ -116,7 +124,7 @@ function createCard(cardData) {
     popupCardImage.alt = cardData.name;
     popupCardTitle.textContent = cardData.name;
 
-    togglePopup(popupCard);
+    openPopup(popupCard);
   });
 
   return cardElement;
@@ -139,22 +147,22 @@ function addNewCard(evt) {
   card.link = fieldLink.value;
 
   prependCard(card);
-  togglePopup(popupAdd);
+  closePopup(popupAdd);
 
+  console.log(createCardButton);
+
+  createCardButton.classList.add('popup__save-btn_disabled');
+  createCardButton.setAttribute('disabled', 'disabled');
   popupAddForm.reset();
 }
 
 editButton.addEventListener('click', () => {
-  togglePopup(popupEdit);
+  openPopup(popupEdit);
   fieldName.value = profileName.textContent;
   fieldAboutMe.value = profileInfo.textContent;
 });
 
-closeEditButton.addEventListener('click', () => { togglePopup(popupEdit) });
 popupEditForm.addEventListener('submit', handleProfileFormSubmit);
 
-addButton.addEventListener('click', () => { togglePopup(popupAdd) });
-closeAddButton.addEventListener('click', () => { togglePopup(popupAdd); });
+addButton.addEventListener('click', () => { openPopup(popupAdd) });
 popupAddForm.addEventListener('submit', addNewCard);
-
-closeCardButton.addEventListener('click', () => { togglePopup(popupCard) });
