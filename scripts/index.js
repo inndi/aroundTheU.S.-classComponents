@@ -57,17 +57,13 @@ const initialCards = [
 ];
 
 
-function closePopupOnClick() {
-  popups.forEach((somePopup) => {
-    somePopup.addEventListener('click', (evt) => {
-      if (evt.target.classList.contains('popup_opened')) {
-        closePopup(somePopup);
-      };
-      if (evt.target.classList.contains('popup__close-btn')) {
-        closePopup(somePopup);
-      };
-    });
-  });
+function closePopupOnClick(evt) {
+  if (evt.target.classList.contains('popup_opened')) {
+    closePopup(evt.target);
+  };
+  if (evt.target.classList.contains('popup__close-btn')) {
+    closePopup(evt.currentTarget);
+  };
 }
 
 function closePopupOnEscKeydown(evt) {
@@ -78,13 +74,18 @@ function closePopupOnEscKeydown(evt) {
 }
 
 function openPopup(somePopup) {
-  closePopupOnClick();
+  popups.forEach((somePopup) => {
+    somePopup.addEventListener('click', closePopupOnClick);
+  })
   document.addEventListener('keydown', closePopupOnEscKeydown);
 
   somePopup.classList.add('popup_opened');
 }
 
 function closePopup(somePopup) {
+  popups.forEach((somePopup) => {
+    somePopup.removeEventListener('click', closePopupOnClick);
+  })
   document.removeEventListener('keydown', closePopupOnEscKeydown);
 
   somePopup.classList.remove('popup_opened');
