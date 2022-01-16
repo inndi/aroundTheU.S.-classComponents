@@ -6,8 +6,6 @@ const profileInfo = profile.querySelector('.profile__about-me');
 const editButton = profile.querySelector('.profile__edit-btn');
 const addButton = profile.querySelector('.profile__add-btn');
 
-const popups = body.querySelectorAll('.popup');
-
 const popupEdit = body.querySelector('.popup_edit');
 const popupAdd = body.querySelector('.popup_add');
 const popupCard = body.querySelector('.popup_card');
@@ -74,18 +72,14 @@ function closePopupOnEscKeydown(evt) {
 }
 
 function openPopup(somePopup) {
-  popups.forEach((somePopup) => {
-    somePopup.addEventListener('click', closePopupOnClick);
-  })
+  somePopup.addEventListener('mousedown', closePopupOnClick);
   document.addEventListener('keydown', closePopupOnEscKeydown);
 
   somePopup.classList.add('popup_opened');
 }
 
 function closePopup(somePopup) {
-  popups.forEach((somePopup) => {
-    somePopup.removeEventListener('click', closePopupOnClick);
-  })
+  somePopup.removeEventListener('mousedown', closePopupOnClick);
   document.removeEventListener('keydown', closePopupOnEscKeydown);
 
   somePopup.classList.remove('popup_opened');
