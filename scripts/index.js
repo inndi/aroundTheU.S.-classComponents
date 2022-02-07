@@ -48,9 +48,24 @@ const initialCards = [
   }
 ];
 
+const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__save-btn",
+  inactiveButtonClass: "popup__save-btn_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__input-error_active",
+};
+
 import { FormValidator } from './FormValidator.js';
 import { openPopup, closePopup } from './utils.js';
 import { Card } from './Card.js';
+
+const addCardFormValidator = new FormValidator(validationConfig, popupAddForm);
+addCardFormValidator.enableValidation();
+
+const editProfileFormValidator = new FormValidator(validationConfig, popupEditForm);
+editProfileFormValidator.enableValidation();
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -74,6 +89,7 @@ initialCards.forEach((card) => {
 function addNewCard(evt) {
   evt.preventDefault();
 
+
   const card = {};
   card.name = fieldTitle.value;
   card.link = fieldLink.value;
@@ -81,8 +97,7 @@ function addNewCard(evt) {
   renderCard(card);
   closePopup(popupAdd);
 
-  createCardButton.classList.add('popup__save-btn_disabled');
-  createCardButton.setAttribute('disabled', 'disabled');
+  addCardFormValidator.disableButton(createCardButton);
   popupAddForm.reset();
 }
 
@@ -96,25 +111,3 @@ popupEditForm.addEventListener('submit', handleProfileFormSubmit);
 
 addButton.addEventListener('click', () => { openPopup(popupAdd) });
 popupAddForm.addEventListener('submit', addNewCard);
-
-
-const validationConfig = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__save-btn",
-  inactiveButtonClass: "popup__save-btn_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__input-error_active",
-};
-
-function addFormValidator(selectors) {
-  const formList = Array.from(document.querySelectorAll(selectors.formSelector));
-
-  formList.forEach((formElement) => {
-
-    const formValidator = new FormValidator(selectors, formElement);
-    formValidator.enableValidation();
-  });
-}
-
-addFormValidator(validationConfig);
