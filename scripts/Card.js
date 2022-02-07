@@ -22,9 +22,14 @@ export class Card {
     this._element = this._getTemplate();
     const cardImage = this._element.querySelector('.card__img');
     const cardTitle = this._element.querySelector('.card__title');
-    this._addLikeButtonListener();
-    this._addImagePopupListener();
-    this._addDeleteButtonListener();
+
+    const likeButton = this._element.querySelector('.card__like-btn');
+    likeButton.addEventListener('click', this._addLikeButtonListener);
+
+    cardImage.addEventListener('click', this._addImagePopupListener);
+
+    const deleteButton = this._element.querySelector('.card__delete-btn');
+    deleteButton.addEventListener('click', this._addDeleteButtonListener);
 
     cardTitle.textContent = this._name;
     cardImage.src = this._link;
@@ -33,32 +38,24 @@ export class Card {
     return this._element;
   }
 
-  _addLikeButtonListener() {
-    const likeButton = this._element.querySelector('.card__like-btn');
-    likeButton.addEventListener('click', (evt) => {
-      evt.target.classList.toggle('card__like-btn_active');
-    });
+  _addLikeButtonListener = (evt) => {
+    evt.target.classList.toggle('card__like-btn_active');
   }
 
-  _addDeleteButtonListener() {
-    const deleteButton = this._element.querySelector('.card__delete-btn');
-    deleteButton.addEventListener('click', () => {
-      this._element.remove();
-      this._element = null;
-    });
+
+  _addDeleteButtonListener = () => {
+    this._element.remove();
+    this._element = null;
   }
 
-  _addImagePopupListener() {
+  _addImagePopupListener = (evt) => {
     const popupCard = document.querySelector('.popup_card');
     const popupCardImage = popupCard.querySelector('.popup__card-img');
     const popupCardTitle = popupCard.querySelector('.popup__card-title');
-    const cardImage = this._element.querySelector('.card__img');
-    cardImage.addEventListener('click', (evt) => {
-      popupCardImage.src = evt.target.src;
-      popupCardImage.alt = evt.target.alt;
-      popupCardTitle.textContent = evt.target.alt;
+    popupCardImage.src = evt.target.src;
+    popupCardImage.alt = evt.target.alt;
+    popupCardTitle.textContent = evt.target.alt;
 
-      openPopup(popupCard);
-    });
+    openPopup(popupCard);
   }
 }
