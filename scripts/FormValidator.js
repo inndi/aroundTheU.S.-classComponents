@@ -12,10 +12,10 @@ export class FormValidator {
 
   enableValidation() {
     this._formElement.addEventListener('submit', (evt) => { evt.preventDefault() });
-    this._setEventListener(this._formElement);
+    this._setEventListeners();
   };
 
-  _setEventListener() {
+  _setEventListeners() {
     const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
     const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
     this._toggleButtonState(inputList, buttonElement);
@@ -31,10 +31,10 @@ export class FormValidator {
   _toggleButtonState(inputList, buttonElement) {
     if (this._hasInvalidInput(inputList)) {
       buttonElement.classList.add(this._inactiveButtonClass);
-      buttonElement.setAttribute('disabled', 'disabled');
+      buttonElement.setAttribute('disabled', true);
     } else {
       buttonElement.classList.remove(this._inactiveButtonClass);
-      buttonElement.removeAttribute('disabled', 'disabled');
+      buttonElement.removeAttribute('disabled');
     };
   };
 
@@ -62,7 +62,7 @@ export class FormValidator {
   _hideInputError(inputElement) {
     const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(this._inputErrorClass);
-    errorElement.textContent = ' ';
+    errorElement.textContent = '';
     errorElement.classList.remove(this._errorClass);
   };
 

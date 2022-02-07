@@ -50,7 +50,7 @@ const initialCards = [
 
 import { FormValidator } from './FormValidator.js';
 import { openPopup, closePopup } from './utils.js';
-import { Card } from './card.js';
+import { Card } from './Card.js';
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -61,14 +61,14 @@ function handleProfileFormSubmit(evt) {
   closePopup(popupEdit);
 }
 
-function prependCard(cardData) {
+function renderCard(cardData) {
   const card = new Card(cardData, '#card-template');
   const cardElement = card.createCard();
   cardsList.prepend(cardElement);
 }
 
 initialCards.forEach((card) => {
-  prependCard(card);
+  renderCard(card);
 });
 
 function addNewCard(evt) {
@@ -78,7 +78,7 @@ function addNewCard(evt) {
   card.name = fieldTitle.value;
   card.link = fieldLink.value;
 
-  prependCard(card);
+  renderCard(card);
   closePopup(popupAdd);
 
   createCardButton.classList.add('popup__save-btn_disabled');
@@ -98,7 +98,7 @@ addButton.addEventListener('click', () => { openPopup(popupAdd) });
 popupAddForm.addEventListener('submit', addNewCard);
 
 
-const enableValidation = {
+const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__save-btn",
@@ -117,4 +117,4 @@ function addFormValidator(selectors) {
   });
 }
 
-addFormValidator(enableValidation);
+addFormValidator(validationConfig);
