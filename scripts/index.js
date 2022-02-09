@@ -97,7 +97,7 @@ function addNewCard(evt) {
   renderCard(card);
   closePopup(popupAdd);
 
-  addCardFormValidator.disableButton(createCardButton);
+  addCardFormValidator.disableButton();
   popupAddForm.reset();
 }
 

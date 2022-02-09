@@ -24,12 +24,12 @@ export class Card {
     const cardTitle = this._element.querySelector('.card__title');
 
     const likeButton = this._element.querySelector('.card__like-btn');
-    likeButton.addEventListener('click', this._addLikeButtonListener);
+    likeButton.addEventListener('click', this._handleLikeButton);
 
-    cardImage.addEventListener('click', this._addImagePopupListener);
+    cardImage.addEventListener('click', this._handleImagePopup);
 
     const deleteButton = this._element.querySelector('.card__delete-btn');
-    deleteButton.addEventListener('click', this._addDeleteButtonListener);
+    deleteButton.addEventListener('click', this._handleDeleteButton);
 
     cardTitle.textContent = this._name;
     cardImage.src = this._link;
@@ -38,17 +38,17 @@ export class Card {
     return this._element;
   }
 
-  _addLikeButtonListener = (evt) => {
+  _handleLikeButton = (evt) => {
     evt.target.classList.toggle('card__like-btn_active');
   }
 
 
-  _addDeleteButtonListener = () => {
+  _handleDeleteButton = () => {
     this._element.remove();
     this._element = null;
   }
 
-  _addImagePopupListener = (evt) => {
+  _handleImagePopup = (evt) => {
     const popupCard = document.querySelector('.popup_card');
     const popupCardImage = popupCard.querySelector('.popup__card-img');
     const popupCardTitle = popupCard.querySelector('.popup__card-title');

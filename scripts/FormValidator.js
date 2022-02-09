@@ -28,14 +28,15 @@ export class FormValidator {
     });
   };
 
-  disableButton(buttonElement) {
+  disableButton() {
+    const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
     buttonElement.classList.add(this._inactiveButtonClass);
     buttonElement.setAttribute('disabled', true);
   }
 
   _toggleButtonState(inputList, buttonElement) {
     if (this._hasInvalidInput(inputList)) {
-      this.disableButton(buttonElement);
+      this.disableButton();
     } else {
       buttonElement.classList.remove(this._inactiveButtonClass);
       buttonElement.removeAttribute('disabled');
