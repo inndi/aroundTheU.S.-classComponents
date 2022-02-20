@@ -19,7 +19,14 @@ const fieldTitle = popupAdd.querySelector('.popup__input_field_title');
 const fieldLink = popupAdd.querySelector('.popup__input_field_link');
 const createCardButton = popupAdd.querySelector('.popup__save-btn');
 
+
 const cardsList = body.querySelector('.cards__list');
+// const cardImage = body.querySelectorAll('.card__img');
+
+// console.log(cardImage);
+// console.log(Array.from(cardImage));
+// bla.forEach((image) => { console.log(image) });
+
 
 const initialCards = [
   {
@@ -58,7 +65,7 @@ const validationConfig = {
 };
 
 import { FormValidator } from './FormValidator.js';
-import { openPopup, closePopup } from './utils.js';
+import { Popup, PopupWithImage } from './utils.js';
 import { Card } from './Card.js';
 
 const addCardFormValidator = new FormValidator(validationConfig, popupAddForm);
@@ -73,7 +80,8 @@ function handleProfileFormSubmit(evt) {
   profileName.textContent = fieldName.value;
   profileInfo.textContent = fieldAboutMe.value;
 
-  closePopup(popupEdit);
+  const editClosePopup = new Popup(popupEdit);
+  editClosePopup.close();
 }
 class Section {
   constructor({ items, renderer }, containerSelector) {
@@ -105,7 +113,6 @@ cardRenderer.renderItems();
 function addNewCard(evt) {
   evt.preventDefault();
 
-
   const card = {};
   card.name = fieldTitle.value;
   card.link = fieldLink.value;
@@ -120,19 +127,31 @@ function addNewCard(evt) {
 
 
   newCardRenderer._renderer(card);
-  closePopup(popupAdd);
+  const addClosePopup = new Popup(popupAdd);
+  addClosePopup.close();
 
   addCardFormValidator.disableButton();
   popupAddForm.reset();
 }
 
 editButton.addEventListener('click', () => {
-  openPopup(popupEdit);
+  const editOpenPopup = new Popup(popupEdit);
+  editOpenPopup.open();
   fieldName.value = profileName.textContent;
   fieldAboutMe.value = profileInfo.textContent;
 });
 
 popupEditForm.addEventListener('submit', handleProfileFormSubmit);
 
-addButton.addEventListener('click', () => { openPopup(popupAdd) });
+addButton.addEventListener('click', () => {
+  const addOpenPopup = new Popup(popupAdd);
+  addOpenPopup.open();
+});
+
 popupAddForm.addEventListener('submit', addNewCard);
+
+// cardImage.addEventListener('click', (evt) => {
+//   console.log(evt.target);
+//   // const imageOpenPopup = new PopupWithImage(evt.target);
+//   // imageOpenPopup.open();
+// });

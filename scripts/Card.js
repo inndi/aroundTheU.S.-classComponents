@@ -1,4 +1,4 @@
-import { openPopup } from './utils.js';
+// import { openPopup } from './utils.js';
 
 export class Card {
 
@@ -26,7 +26,7 @@ export class Card {
     const likeButton = this._element.querySelector('.card__like-btn');
     likeButton.addEventListener('click', this._handleLikeButton);
 
-    cardImage.addEventListener('click', this._handleImagePopup);
+    // cardImage.addEventListener('click', this._handleImagePopup);
 
     const deleteButton = this._element.querySelector('.card__delete-btn');
     deleteButton.addEventListener('click', this._handleDeleteButton);
@@ -48,14 +48,14 @@ export class Card {
     this._element = null;
   }
 
-  _handleImagePopup = (evt) => {
-    const popupCard = document.querySelector('.popup_card');
-    const popupCardImage = popupCard.querySelector('.popup__card-img');
-    const popupCardTitle = popupCard.querySelector('.popup__card-title');
-    popupCardImage.src = evt.target.src;
-    popupCardImage.alt = evt.target.alt;
-    popupCardTitle.textContent = evt.target.alt;
+  // _handleImagePopup = (evt) => {
+  //   const popupCard = document.querySelector('.popup_card');
+  //   const popupCardImage = popupCard.querySelector('.popup__card-img');
+  //   const popupCardTitle = popupCard.querySelector('.popup__card-title');
+  //   popupCardImage.src = evt.target.src;
+  //   popupCardImage.alt = evt.target.alt;
+  //   popupCardTitle.textContent = evt.target.alt;
 
-    openPopup(popupCard);
-  }
+  //   openPopup(popupCard);
+  // }
 }
