@@ -75,16 +75,32 @@ function handleProfileFormSubmit(evt) {
 
   closePopup(popupEdit);
 }
+class Section {
+  constructor({ items, renderer }, containerSelector) {
+    this._renderedItems = items;
+    this._renderer = renderer;
+    this._container = containerSelector;
+  }
+  renderItems() {
+    this._renderedItems.forEach((item) => {
+      this._renderer(item);
+    });
+  }
+  addItem(element) {
+    this._container.prepend(element);
+  }
+};
 
-function renderCard(cardData) {
-  const card = new Card(cardData, '#card-template');
-  const cardElement = card.createCard();
-  cardsList.prepend(cardElement);
-}
+const cardRenderer = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = new Card(item, '#card-template');
+    const cardElement = card.createCard();
+    cardRenderer.addItem(cardElement);
+  }
+}, cardsList);
 
-initialCards.forEach((card) => {
-  renderCard(card);
-});
+cardRenderer.renderItems();
 
 function addNewCard(evt) {
   evt.preventDefault();
@@ -94,7 +110,16 @@ function addNewCard(evt) {
   card.name = fieldTitle.value;
   card.link = fieldLink.value;
 
-  renderCard(card);
+  const newCardRenderer = new Section({
+    renderer: (card) => {
+      const newCard = new Card(card, '#card-template');
+      const cardElement = newCard.createCard();
+      newCardRenderer.addItem(cardElement);
+    }
+  }, cardsList);
+
+
+  newCardRenderer._renderer(card);
   closePopup(popupAdd);
 
   addCardFormValidator.disableButton();
