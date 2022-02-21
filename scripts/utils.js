@@ -4,26 +4,26 @@ class Popup {
   }
 
   open() {
-    this._popup.addEventListener('mousedown', (evt) => { this.setEventListeners(evt) });
-    document.addEventListener('keydown', (evt) => { this._handleEscClose(evt) });
+    this._popup.addEventListener('mousedown', this.setEventListeners);
+    document.addEventListener('keydown', this._handleEscClose);
 
     this._popup.classList.add('popup_opened');
   }
 
   close() {
-    this._popup.removeEventListener('mousedown', (evt) => { this.setEventListeners(evt) });
-    document.removeEventListener('keydown', (evt) => { this._handleEscClose(evt) });
+    this._popup.removeEventListener('mousedown', this.setEventListeners);
+    document.removeEventListener('keydown', this._handleEscClose);
 
     this._popup.classList.remove('popup_opened');
   }
 
-  _handleEscClose(evt) {
+  _handleEscClose = (evt) => {
     if (evt.key === 'Escape') {
       this.close();
     };
   }
 
-  setEventListeners(evt) {
+  setEventListeners = (evt) => {
     if (evt.target.classList.contains('popup_opened')) {
       this.close(evt.target);
     };
@@ -36,25 +36,24 @@ class Popup {
 
 
 class PopupWithImage extends Popup {
-  constructor(somePopup) {
+  constructor(somePopup, someCard) {
     super(somePopup);
+    this._card = someCard;
+  }
+
+
+  _handleImagePopup = (evt) => {
+    const popupCardImage = this._popup.querySelector('.popup__card-img');
+    const popupCardTitle = this._popup.querySelector('.popup__card-title');
+    popupCardImage.src = evt.target.src;
+    popupCardImage.alt = evt.target.alt;
+    popupCardTitle.textContent = evt.target.alt;
   }
 
   open() {
-    // super.open();
-    // const popupCard = document.querySelector('.popup_card');
-    const popupCardImage = this._popup.querySelector('.popup__card-img');
-    const popupCardTitle = this._popup.querySelector('.popup__card-title');
-    popupCardImage.src = this._popup.src;
-    popupCardImage.alt = this._popup.alt;
-    popupCardTitle.textContent = this._popup.alt;
-
-    popupCardImage.addEventListener('mousedown', this.setEventListeners);
-    document.addEventListener('keydown', this._handleEscClose);
-
-    popupCardImage.classList.add('popup_opened');
-
-    // openPopup(popupCard);
+    const cardImage = this._card.querySelector('.card__img');
+    cardImage.addEventListener('mousedown', this._handleImagePopup);
+    cardImage.addEventListener('mousedown', () => { super.open() });
   };
 }
 

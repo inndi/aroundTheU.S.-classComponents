@@ -10,6 +10,9 @@ const popupEdit = body.querySelector('.popup_edit');
 const popupAdd = body.querySelector('.popup_add');
 
 
+
+const popupCard = document.querySelector('.popup_card');
+
 const popupEditForm = popupEdit.querySelector('.popup__form');
 const fieldName = popupEdit.querySelector('.popup__input_field_name');
 const fieldAboutMe = popupEdit.querySelector('.popup__input_field_about-me');
@@ -105,6 +108,8 @@ const cardRenderer = new Section({
     const card = new Card(item, '#card-template');
     const cardElement = card.createCard();
     cardRenderer.addItem(cardElement);
+    const popupCardRenderer = new PopupWithImage(popupCard, cardElement);
+    popupCardRenderer.open();
   }
 }, cardsList);
 
@@ -122,6 +127,8 @@ function addNewCard(evt) {
       const newCard = new Card(card, '#card-template');
       const cardElement = newCard.createCard();
       newCardRenderer.addItem(cardElement);
+      const popupCardRenderer = new PopupWithImage(popupCard, cardElement);
+      popupCardRenderer.open();
     }
   }, cardsList);
 
@@ -149,9 +156,3 @@ addButton.addEventListener('click', () => {
 });
 
 popupAddForm.addEventListener('submit', addNewCard);
-
-// cardImage.addEventListener('click', (evt) => {
-//   console.log(evt.target);
-//   // const imageOpenPopup = new PopupWithImage(evt.target);
-//   // imageOpenPopup.open();
-// });
