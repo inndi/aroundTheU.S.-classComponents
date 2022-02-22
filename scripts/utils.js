@@ -4,16 +4,13 @@ class Popup {
   }
 
   open() {
-    this._popup.addEventListener('mousedown', this.setEventListeners);
-    document.addEventListener('keydown', this._handleEscClose);
+    this.setEventListeners();
 
     this._popup.classList.add('popup_opened');
   }
 
   close() {
-    this._popup.removeEventListener('mousedown', this.setEventListeners);
-    document.removeEventListener('keydown', this._handleEscClose);
-
+    this.deleteEventListeners();
     this._popup.classList.remove('popup_opened');
   }
 
@@ -23,18 +20,25 @@ class Popup {
     };
   }
 
-  setEventListeners = (evt) => {
+  _handleClickClose = (evt) => {
     if (evt.target.classList.contains('popup_opened')) {
-      this.close(evt.target);
+      this.close();
     };
     if (evt.target.classList.contains('popup__close-btn')) {
-      this.close(evt.currentTarget);
+      this.close();
     };
   }
 
+  setEventListeners() {
+    this._popup.addEventListener('mousedown', this._handleClickClose);
+    document.addEventListener('keydown', this._handleEscClose);
+  }
+
+  deleteEventListeners() {
+    this._popup.removeEventListener('mousedown', this._handleClickClose);
+    document.removeEventListener('keydown', this._handleEscClose);
+  }
 }
-
-
 class PopupWithImage extends Popup {
   constructor(somePopup, someCard) {
     super(somePopup);
@@ -55,6 +59,39 @@ class PopupWithImage extends Popup {
     cardImage.addEventListener('mousedown', this._handleImagePopup);
     cardImage.addEventListener('mousedown', () => { super.open() });
   };
+}
+class PopupWithForm extends Popup {
+  constructor({ somePopup, callBack }) {
+    super(somePopup);
+    this._callBack = callBack;
+  }
+  _getInputValues() {
+    const fieldsList = {};
+    const fields = this._popup.querySelectorAll('.popup__input');
+    fields.forEach((field) => {
+      fieldsList[field.name] = field.value;
+    });
+    return fieldsList;
+  }
+
+  setEventListeners() {
+    this._popup.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      this._callBack();
+    });
+    super.setEventListeners();
+  }
+
+  open() {
+    super.setEventListeners();
+    this._popup.classList.add('popup_opened');
+  }
+
+  close() {
+    super.close();
+    const popupForm = this._popup.querySelector('.popup__form');
+    popupForm.reset();
+  }
 }
 
 
@@ -90,4 +127,4 @@ class PopupWithImage extends Popup {
 
 // export { openPopup, closePopup };
 
-export { Popup, PopupWithImage };
+export { PopupWithImage, PopupWithForm };
