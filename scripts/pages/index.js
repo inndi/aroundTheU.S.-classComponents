@@ -55,48 +55,18 @@ const validationConfig = {
   errorClass: "popup__input-error_active",
 };
 
-import { FormValidator } from './FormValidator.js';
-import { PopupWithImage, PopupWithForm, UserInfo } from './utils.js';
-import { Card } from './Card.js';
+import { FormValidator } from '../utils/FormValidator.js';
+import { PopupWithImage } from '../components/PopupWithImages.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
+import { UserInfo } from '../components/UserInfo.js';
+import { Card } from '../components/Card.js';
+import { Section } from "../components/Section.js";
 
 const addCardFormValidator = new FormValidator(validationConfig, popupAddForm);
 addCardFormValidator.enableValidation();
 
 const editProfileFormValidator = new FormValidator(validationConfig, popupEditForm);
 editProfileFormValidator.enableValidation();
-
-
-// function handleProfileFormSubmit(evt) {
-//   evt.preventDefault();
-
-//   profileName.textContent = fieldName.value;
-//   profileInfo.textContent = fieldAboutMe.value;
-
-//   const editClosePopup = new Popup(popupEdit);
-//   editClosePopup.close();
-// }
-class Section {
-  constructor({ items, renderer }, containerSelector) {
-    this._renderedItems = items;
-    this._renderer = renderer;
-    this._container = containerSelector;
-  }
-
-  _clear() {
-    this._container.innerHTML = "";
-  }
-
-  renderItems() {
-    this._clear();
-
-    this._renderedItems.forEach((item) => {
-      this._renderer(item);
-    });
-  }
-  addItem(element) {
-    this._container.prepend(element);
-  }
-};
 
 const cardRenderer = new Section({
   items: initialCards,
@@ -110,37 +80,6 @@ const cardRenderer = new Section({
 }, cardsList);
 
 cardRenderer.renderItems();
-
-// function addNewCard(evt) {
-//   evt.preventDefault();
-
-//   const card = {};
-//   card.name = fieldTitle.value;
-//   card.link = fieldLink.value;
-
-//   const newCardRenderer = new Section({
-//     renderer: (card) => {
-//       const newCard = new Card(card, '#card-template');
-//       const cardElement = newCard.createCard();
-//       newCardRenderer.addItem(cardElement);
-//       const popupCardRenderer = new PopupWithImage(popupCard, cardElement);
-//       popupCardRenderer.open();
-//     }
-//   }, cardsList);
-
-
-//   newCardRenderer._renderer(card);
-//   const addClosePopup = new Popup(popupAdd);
-//   addClosePopup.close();
-
-//   addCardFormValidator.disableButton();
-//   popupAddForm.reset();
-// }
-
-
-
-// popupEditForm.addEventListener('submit', handleProfileFormSubmit);
-//iji;io;o
 
 const editPopupBehavior = new PopupWithForm({
   somePopup: popupEdit,

@@ -1,5 +1,3 @@
-// import { openPopup } from './utils.js';
-
 export class Card {
 
   constructor(cardData, cardTemplate) {
@@ -47,15 +45,4 @@ export class Card {
     this._element.remove();
     this._element = null;
   }
-
-  // _handleImagePopup = (evt) => {
-  //   const popupCard = document.querySelector('.popup_card');
-  //   const popupCardImage = popupCard.querySelector('.popup__card-img');
-  //   const popupCardTitle = popupCard.querySelector('.popup__card-title');
-  //   popupCardImage.src = evt.target.src;
-  //   popupCardImage.alt = evt.target.alt;
-  //   popupCardTitle.textContent = evt.target.alt;
-
-  //   openPopup(popupCard);
-  // }
 }
