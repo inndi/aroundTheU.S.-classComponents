@@ -56,7 +56,7 @@ const validationConfig = {
 };
 
 import { FormValidator } from './FormValidator.js';
-import { PopupWithImage, PopupWithForm } from './utils.js';
+import { PopupWithImage, PopupWithForm, UserInfo } from './utils.js';
 import { Card } from './Card.js';
 
 const addCardFormValidator = new FormValidator(validationConfig, popupAddForm);
@@ -139,8 +139,10 @@ const editPopupBehavior = new PopupWithForm({
   somePopup: popupEdit,
   callBack: () => {
     const editFields = editPopupBehavior._getInputValues();
-    profileName.textContent = editFields.profileName;
-    profileInfo.textContent = editFields.profileAbout;
+
+    const userInfoRenderer = new UserInfo(profileName, profileInfo);
+    userInfoRenderer.setUserInfo(editFields);
+
     editPopupBehavior.close();
     editProfileFormValidator.disableButton();
   }
@@ -175,8 +177,11 @@ const addPopupBehavior = new PopupWithForm({
 addPopupBehavior.setEventListeners();
 
 editButton.addEventListener('click', () => {
-  fieldName.value = profileName.textContent;
-  fieldAboutMe.value = profileInfo.textContent;
+  const userInfoRenderer = new UserInfo(profileName, profileInfo);
+  const userInfo = userInfoRenderer.getUserInfo();
+
+  fieldName.value = userInfo.name;
+  fieldAboutMe.value = userInfo.about;
 
   editPopupBehavior.open();
 });

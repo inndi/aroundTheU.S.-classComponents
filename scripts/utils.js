@@ -95,6 +95,23 @@ class PopupWithForm extends Popup {
 }
 
 
+class UserInfo {
+  constructor(selectorName, selectorAbout) {
+    this._name = selectorName;
+    this._about = selectorAbout;
+  }
+  getUserInfo() {
+    const userInfoList = {};
+    userInfoList.name = this._name.textContent;
+    userInfoList.about = this._about.textContent;
+    return userInfoList;
+  }
+  setUserInfo(newUserData) {
+    this._name.textContent = newUserData.profileName;
+    this._about.textContent = newUserData.profileAbout;
+  }
+}
+
 // function closePopupOnClick(evt) {
 //   if (evt.target.classList.contains('popup_opened')) {
 //     closePopup(evt.target);
@@ -127,4 +144,4 @@ class PopupWithForm extends Popup {
 
 // export { openPopup, closePopup };
 
-export { PopupWithImage, PopupWithForm };
+export { PopupWithImage, PopupWithForm, UserInfo };
