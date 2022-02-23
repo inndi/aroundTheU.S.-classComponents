@@ -81,7 +81,14 @@ class Section {
     this._renderer = renderer;
     this._container = containerSelector;
   }
+
+  _clear() {
+    this._container.innerHTML = "";
+  }
+
   renderItems() {
+    this._clear();
+
     this._renderedItems.forEach((item) => {
       this._renderer(item);
     });
