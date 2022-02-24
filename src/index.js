@@ -1,3 +1,8 @@
+import "./styles/index.css";
+// import profilePhotoSrc from "./images/profile-photo.jpg";
+// const profilePhoto = document.getElementById("profile-photo");
+// profilePhoto.src = profilePhotoSrc;
+
 const body = document.querySelector('.page');
 
 const profile = body.querySelector('.profile');
@@ -55,12 +60,12 @@ const validationConfig = {
   errorClass: "popup__input-error_active",
 };
 
-import { FormValidator } from '../utils/FormValidator.js';
-import { PopupWithImage } from '../components/PopupWithImages.js';
-import { PopupWithForm } from '../components/PopupWithForm.js';
-import { UserInfo } from '../components/UserInfo.js';
-import { Card } from '../components/Card.js';
-import { Section } from "../components/Section.js";
+import { FormValidator } from '../scripts/utils/FormValidator.js';
+import { PopupWithImage } from '../scripts/components/PopupWithImages.js';
+import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
+import { UserInfo } from '../scripts/components/UserInfo.js';
+import { Card } from '../scripts/components/Card.js';
+import { Section } from "../scripts/components/Section.js";
 
 const addCardFormValidator = new FormValidator(validationConfig, popupAddForm);
 addCardFormValidator.enableValidation();
