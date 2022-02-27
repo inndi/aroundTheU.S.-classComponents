@@ -35,15 +35,17 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: "css-loader"
+            loader: "css-loader",
+            options: { importLoaders: 1 },
           },
+          "postcss-loader",
         ]
       },
       {
         test: /\.(png|svg|jpg|gif|woff(2)?|eot|ttf|otf)$/,
         type: "asset/resource"
       },
-    ]
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({

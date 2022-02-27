@@ -1,7 +1,11 @@
 import "./styles/index.css";
-// import profilePhotoSrc from "./images/profile-photo.jpg";
-// const profilePhoto = document.getElementById("profile-photo");
-// profilePhoto.src = profilePhotoSrc;
+import profilePhotoSrc from "./images/profile-photo.jpg";
+import headerLogoSrc from "./images/logo.svg";
+
+const profilePhoto = document.getElementById("profile-photo");
+profilePhoto.src = profilePhotoSrc;
+const headerLogo = document.getElementById("header-logo");
+headerLogo.src = headerLogoSrc;
 
 const body = document.querySelector('.page');
 
@@ -60,12 +64,12 @@ const validationConfig = {
   errorClass: "popup__input-error_active",
 };
 
-import { FormValidator } from '../scripts/utils/FormValidator.js';
-import { PopupWithImage } from '../scripts/components/PopupWithImages.js';
-import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
-import { UserInfo } from '../scripts/components/UserInfo.js';
-import { Card } from '../scripts/components/Card.js';
-import { Section } from "../scripts/components/Section.js";
+import { FormValidator } from './scripts/utils/FormValidator.js';
+import { PopupWithImage } from './scripts/components/PopupWithImages.js';
+import { PopupWithForm } from './scripts/components/PopupWithForm.js';
+import { UserInfo } from './scripts/components/UserInfo.js';
+import { Card } from './scripts/components/Card.js';
+import { Section } from "./scripts/components/Section.js";
 
 const addCardFormValidator = new FormValidator(validationConfig, popupAddForm);
 addCardFormValidator.enableValidation();

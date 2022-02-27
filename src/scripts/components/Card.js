@@ -24,8 +24,6 @@ export class Card {
     const likeButton = this._element.querySelector('.card__like-btn');
     likeButton.addEventListener('click', this._handleLikeButton);
 
-    // cardImage.addEventListener('click', this._handleImagePopup);
-
     const deleteButton = this._element.querySelector('.card__delete-btn');
     deleteButton.addEventListener('click', this._handleDeleteButton);
 
