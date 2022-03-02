@@ -24,7 +24,7 @@ import {
   validationConfig
 } from '../scripts/utils/constants.js ';
 
-import { FormValidator } from '../scripts/utils/FormValidator.js';
+import { FormValidator } from '../scripts/components/FormValidator.js';
 import { PopupWithImage } from '../scripts/components/PopupWithImages.js';
 import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
 import { UserInfo } from '../scripts/components/UserInfo.js';
@@ -97,10 +97,12 @@ editButton.addEventListener('click', () => {
 
   fieldName.value = userInfo.name;
   fieldAboutMe.value = userInfo.about;
+  editProfileFormValidator.resetValidation();
 
   editPopupBehavior.open();
 });
 
 addButton.addEventListener('click', () => {
   addPopupBehavior.open();
+  addCardFormValidator.resetValidation();
 });
