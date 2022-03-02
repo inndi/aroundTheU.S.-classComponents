@@ -4,19 +4,15 @@ export class PopupWithImage extends Popup {
   constructor(somePopup, someCard) {
     super(somePopup);
     this._card = someCard;
+    this._popupCardImage = this._popup.querySelector('.popup__card-img');
+    this._popupCardTitle = this._popup.querySelector('.popup__card-title');
+    this._cardImage = this._card.querySelector('.card__img');
   }
 
-  _handleImagePopup = (evt) => {
-    const popupCardImage = this._popup.querySelector('.popup__card-img');
-    const popupCardTitle = this._popup.querySelector('.popup__card-title');
-    popupCardImage.src = evt.target.src;
-    popupCardImage.alt = evt.target.alt;
-    popupCardTitle.textContent = evt.target.alt;
-  }
-
-  open() {
-    const cardImage = this._card.querySelector('.card__img');
-    cardImage.addEventListener('mousedown', this._handleImagePopup);
-    cardImage.addEventListener('mousedown', () => { super.open() });
+  open = (evt) => {
+    this._popupCardImage.src = evt.target.src;
+    this._popupCardImage.alt = evt.target.alt;
+    this._popupCardTitle.textContent = evt.target.alt;
+    super.open();
   };
 }

@@ -4,11 +4,12 @@ export class PopupWithForm extends Popup {
   constructor({ somePopup, callBack }) {
     super(somePopup);
     this._callBack = callBack;
+    this._fields = this._popup.querySelectorAll('.popup__input');
+    this._popupForm = this._popup.querySelector('.popup__form');
   }
-  _getInputValues() {
+  getInputValues() {
     const fieldsList = {};
-    const fields = this._popup.querySelectorAll('.popup__input');
-    fields.forEach((field) => {
+    this._fields.forEach((field) => {
       fieldsList[field.name] = field.value;
     });
     return fieldsList;
@@ -22,14 +23,13 @@ export class PopupWithForm extends Popup {
     super.setEventListeners();
   }
 
-  open() {
-    super.setEventListeners();
-    this._popup.classList.add('popup_opened');
-  }
+  // open() {
+  //   super.setEventListeners();
+  //   this._popup.classList.add('popup_opened');
+  // }
 
   close() {
     super.close();
-    const popupForm = this._popup.querySelector('.popup__form');
-    popupForm.reset();
+    this._popupForm.reset();
   }
 }
