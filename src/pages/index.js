@@ -31,11 +31,22 @@ import { UserInfo } from '../scripts/components/UserInfo.js';
 import { Card } from '../scripts/components/Card.js';
 import { Section } from "../scripts/components/Section.js";
 
-const addCardFormValidator = new FormValidator(validationConfig, popupAddForm);
-addCardFormValidator.enableValidation();
 
-const editProfileFormValidator = new FormValidator(validationConfig, popupEditForm);
-editProfileFormValidator.enableValidation();
+const formValidators = {};
+
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute('name');
+
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(validationConfig);
 
 function createCard(item) {
   const card = new Card({
@@ -71,7 +82,7 @@ const editPopupBehavior = new PopupWithForm({
     userInfoRenderer.setUserInfo(editFields);
 
     editPopupBehavior.close();
-    editProfileFormValidator.disableButton();
+    formValidators[popupEditForm.getAttribute('name')].disableButton();
   }
 });
 editPopupBehavior.setEventListeners();
@@ -87,7 +98,7 @@ const addPopupBehavior = new PopupWithForm({
     cardRenderer.renderer(card);
     addPopupBehavior.close();
 
-    addCardFormValidator.disableButton();
+    formValidators[popupAddForm.getAttribute('name')].disableButton();
   }
 });
 addPopupBehavior.setEventListeners();
@@ -97,12 +108,12 @@ editButton.addEventListener('click', () => {
 
   fieldName.value = userInfo.name;
   fieldAboutMe.value = userInfo.about;
-  editProfileFormValidator.resetValidation();
+  formValidators[popupEditForm.getAttribute('name')].resetValidation();
 
   editPopupBehavior.open();
 });
 
 addButton.addEventListener('click', () => {
   addPopupBehavior.open();
-  addCardFormValidator.resetValidation();
+  formValidators[popupAddForm.getAttribute('name')].resetValidation();
 });
