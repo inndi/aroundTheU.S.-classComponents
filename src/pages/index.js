@@ -22,7 +22,7 @@ import {
   cardsList,
   initialCards,
   validationConfig
-} from '../scripts/utils/constants.js ';
+} from '../scripts/utils/constants.js';
 
 import { FormValidator } from '../scripts/components/FormValidator.js';
 import { PopupWithImage } from '../scripts/components/PopupWithImages.js';
@@ -53,7 +53,7 @@ function createCard(item) {
     cardData: item,
     cardTemplate: '#card-template',
     handleCardClick: (evt) => {
-      const popupCardRenderer = new PopupWithImage(popupCard, cardElement);
+      const popupCardRenderer = new PopupWithImage(popupCard);
       popupCardRenderer.open(evt);
       popupCardRenderer.setEventListeners();
     }
@@ -82,7 +82,6 @@ const editPopupBehavior = new PopupWithForm({
     userInfoRenderer.setUserInfo(editFields);
 
     editPopupBehavior.close();
-    formValidators[popupEditForm.getAttribute('name')].disableButton();
   }
 });
 editPopupBehavior.setEventListeners();
@@ -97,8 +96,6 @@ const addPopupBehavior = new PopupWithForm({
 
     cardRenderer.renderer(card);
     addPopupBehavior.close();
-
-    formValidators[popupAddForm.getAttribute('name')].disableButton();
   }
 });
 addPopupBehavior.setEventListeners();
@@ -114,6 +111,6 @@ editButton.addEventListener('click', () => {
 });
 
 addButton.addEventListener('click', () => {
-  addPopupBehavior.open();
   formValidators[popupAddForm.getAttribute('name')].resetValidation();
+  addPopupBehavior.open();
 });
