@@ -48,14 +48,15 @@ const enableValidation = (config) => {
 
 enableValidation(validationConfig);
 
+const popupCardRenderer = new PopupWithImage(popupCard);
+popupCardRenderer.setEventListeners();
+
 function createCard(item) {
   const card = new Card({
     cardData: item,
     cardTemplate: '#card-template',
     handleCardClick: (evt) => {
-      const popupCardRenderer = new PopupWithImage(popupCard);
       popupCardRenderer.open(evt);
-      popupCardRenderer.setEventListeners();
     }
   });
   const cardElement = card.createCard();
