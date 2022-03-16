@@ -18,6 +18,10 @@
   opacity: 0.8;
 }
 
+.popup_delete .popup__save-btn {
+  margin-top: 38px;
+}
+
 @media screen and (max-width: 631px) {
   .popup__save-btn {
     max-width: 238px;

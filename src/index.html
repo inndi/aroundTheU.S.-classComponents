@@ -16,10 +16,10 @@
     <section class="profile">
       <img id="profile-photo" alt="photo of Jacques Cousteau" class="profile__photo">
       <div class="profile__name-box">
-        <h1 class="profile__name">Jacques Cousteau</h1>
+        <h1 class="profile__name"></h1>
         <button class="profile__edit-btn hover-btn" type="button"></button>
       </div>
-      <p class="profile__about-me">Explorer</p>
+      <p class="profile__about-me"></p>
       <button class="profile__add-btn hover-btn" type="button"></button>
     </section>
     <section class="cards">
@@ -67,11 +67,34 @@
       <button class="popup__close-btn hover-btn" type="button"></button>
     </div>
   </div>
+
+  <div class="popup popup_delete">
+    <div class="popup__container">
+      <h2 class="popup__title">Are you sure?</h2>
+      <button class="popup__save-btn" type="submit">Yes</button>
+      <button class="popup__close-btn hover-btn" type="button"></button>
+    </div>
+  </div>
+
+  <div class="popup popup_edit-photo">
+    <div class="popup__container">
+      <h2 class="popup__title">Change profile picture</h2>
+      <form class="popup__form" name="register-card">
+        <input id="link-input" type="url" name="placeLink" placeholder="Image link" autocomplete="off"
+          class="popup__input popup__input_field_link" required>
+        <span class="popup__input-error link-input-error"></span>
+        <button class="popup__save-btn" type="submit">Save</button>
+      </form>
+      <button class="popup__close-btn hover-btn" type="button"></button>
+    </div>
+  </div>
+
   <template id="card-template">
     <li class="card">
       <img src=" " alt=" " class="card__img">
       <h2 class="card__title"></h2>
       <button class="card__like-btn" type="button"></button>
+      <p class="card__likes-amount">0</p>
       <button class="card__delete-btn hover-btn" type="button"></button>
     </li>
   </template>

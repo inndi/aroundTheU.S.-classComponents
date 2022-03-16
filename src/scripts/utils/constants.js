@@ -8,6 +8,9 @@ const addButton = profile.querySelector('.profile__add-btn');
 
 const popupEdit = body.querySelector('.popup_edit');
 const popupAdd = body.querySelector('.popup_add');
+const popupDelete = body.querySelector('.popup_delete');
+
+const popupDeleteYesButton = popupDelete.querySelector('.popup__save-btn');
 
 const popupCard = document.querySelector('.popup_card');
 
@@ -19,32 +22,32 @@ const popupAddForm = popupAdd.querySelector('.popup__form');
 
 const cardsList = body.querySelector('.cards__list');
 
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg"
-  },
-  {
-    name: "Lake Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg"
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg"
-  },
-  {
-    name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg"
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://code.s3.yandex.net/web-code/vanoise.jpg"
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg"
-  }
-];
+// const initialCards = [
+//   {
+//     name: "Yosemite Valley",
+//     link: "https://code.s3.yandex.net/web-code/yosemite.jpg"
+//   },
+//   {
+//     name: "Lake Louise",
+//     link: "https://code.s3.yandex.net/web-code/lake-louise.jpg"
+//   },
+//   {
+//     name: "Bald Mountains",
+//     link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg"
+//   },
+//   {
+//     name: "Latemar",
+//     link: "https://code.s3.yandex.net/web-code/latemar.jpg"
+//   },
+//   {
+//     name: "Vanoise National Park",
+//     link: "https://code.s3.yandex.net/web-code/vanoise.jpg"
+//   },
+//   {
+//     name: "Lago di Braies",
+//     link: "https://code.s3.yandex.net/web-code/lago.jpg"
+//   }
+// ];
 
 const validationConfig = {
   formSelector: ".popup__form",
@@ -68,6 +71,8 @@ export {
   fieldAboutMe,
   popupAddForm,
   cardsList,
-  initialCards,
-  validationConfig
+  // initialCards,
+  validationConfig,
+  popupDelete,
+  popupDeleteYesButton
 };

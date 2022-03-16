@@ -6,6 +6,11 @@
   line-height: 1.2;
 }
 
+.popup_delete .popup__title {
+  padding-bottom: 0;
+  line-height: 1;
+}
+
 @media screen and (max-width: 631px) {
   .popup__title {
     font-size: 18px;
