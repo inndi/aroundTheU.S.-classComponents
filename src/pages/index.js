@@ -1,9 +1,9 @@
 import "./index.css";
-import profilePhotoSrc from "../images/profile-photo.jpg";
+// import profilePhotoSrc from "../images/profile-photo.jpg";
 import headerLogoSrc from "../images/logo.svg";
 
-const profilePhoto = document.getElementById("profile-photo");
-profilePhoto.src = profilePhotoSrc;
+// const profilePhoto = document.getElementById("profile-photo");
+// profilePhoto.src = profilePhotoSrc;
 const headerLogo = document.getElementById("header-logo");
 headerLogo.src = headerLogoSrc;
 
@@ -23,7 +23,10 @@ import {
   // initialCards,
   validationConfig,
   popupDelete,
-  popupDeleteYesButton
+  popupDeleteYesButton,
+  photoContainer,
+  popupEditAvatar,
+  editAvatarBtn
 } from '../scripts/utils/constants.js';
 
 import { FormValidator } from '../scripts/components/FormValidator.js';
@@ -33,6 +36,7 @@ import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
 import { UserInfo } from '../scripts/components/UserInfo.js';
 import { Card } from '../scripts/components/Card.js';
 import { Section } from "../scripts/components/Section.js";
+import { PopupWithAvaForm } from "../scripts/components/PopupWithAvaForm.js";
 
 
 
@@ -61,15 +65,63 @@ class Api {
       });
   }
 
-  renderInitialCards() {
-    this.getInitialCards()
-      .then((result) => {
-        result.forEach((card) => { cardRenderer.renderer(card) });
+  getMyProfile() {
+    return fetch("https://around.nomoreparties.co/v1/group-12/users/me", {
+      headers: {
+        authorization: "2f92e6f8-d3bf-4f0b-b7c9-ecb844a65d7b",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
       });
   }
 
+  renderInitialCards() {
+    this.getInitialCards()
+      .then((cards) => {
+        this.getMyProfile()
+          .then((user) => {
+            cards.forEach((card) => {
+              if (card.owner._id === user._id) {
+                card.isMine = true;
+              }
+              cardRenderer.renderer(card)
+            });
+          })
+
+      });
+  }
+
+  renderMatchLike() {
+    this.getInitialCards()
+      .then((cards) => {
+        return fetch("https://around.nomoreparties.co/v1/group-12/users/me", {
+          method: 'GET',
+          headers: {
+            authorization: "2f92e6f8-d3bf-4f0b-b7c9-ecb844a65d7b"
+          }
+        })
+          .then(res => res.json())
+
+
+      });
+  }
+
+  delete(cardId) {
+    return fetch(`https://around.nomoreparties.co/v1/group-12/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: "2f92e6f8-d3bf-4f0b-b7c9-ecb844a65d7b"
+      }
+    })
+  }
+
   postNewCardData(card) {
-    fetch('https://around.nomoreparties.co/v1/group-12/cards ', {
+    return fetch('https://around.nomoreparties.co/v1/group-12/cards ', {
       method: 'POST',
       headers: {
         authorization: '2f92e6f8-d3bf-4f0b-b7c9-ecb844a65d7b',
@@ -79,11 +131,11 @@ class Api {
         name: card.name,
         link: card.link
       })
-    })
+    }).then(res => res.json());
   }
 
   patchProfileData(editFields) {
-    fetch('https://around.nomoreparties.co/v1/group-12/users/me', {
+    return fetch('https://around.nomoreparties.co/v1/group-12/users/me', {
       method: 'PATCH',
       headers: {
         authorization: '2f92e6f8-d3bf-4f0b-b7c9-ecb844a65d7b',
@@ -97,29 +149,44 @@ class Api {
   }
 
   setNewProfileData() {
-    fetch("https://around.nomoreparties.co/v1/group-12/users/me", {
-      method: 'GET',
+    this.getMyProfile()
+      .then((myProfile) => {
+        profileName.textContent = myProfile.name;
+        profileInfo.textContent = myProfile.about;
+      });
+  }
+
+  patchAvatar(field) {
+    return fetch('https://around.nomoreparties.co/v1/group-12/users/me/avatar', {
+      method: 'PATCH',
       headers: {
-        authorization: "2f92e6f8-d3bf-4f0b-b7c9-ecb844a65d7b"
-      }
-    })
-      .then(res => res.json())
-      .then((result) => {
-        profileName.textContent = result.name;
-        profileInfo.textContent = result.about;
+        authorization: '2f92e6f8-d3bf-4f0b-b7c9-ecb844a65d7b',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        avatar: field.value,
+      })
+    });
+  }
+
+  setAvatar() {
+    this.getMyProfile()
+      .then((myProfile) => {
+        photoContainer.src = myProfile.avatar;
       });
   }
 
   getAmountOfLikes() {
-
     this.getInitialCards()
-      .then((result) => {
-        result.forEach((bla) => {
-          console.log(bla.likes)
+      .then((cards) => {
+        cards.forEach((card) => {
+          console.log(card.likes)
         })
       });
   }
 }
+
+
 
 const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/group-12",
@@ -129,10 +196,9 @@ const api = new Api({
   }
 });
 
-
-
-
-
+api.setAvatar();
+api.setNewProfileData();
+api.renderInitialCards();
 
 
 const formValidators = {};
@@ -158,6 +224,29 @@ const popupDeleteRenderer = new Popup(popupDelete);
 popupDeleteRenderer.setEventListeners();
 
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+const popupEditAvatarRenderer = new PopupWithAvaForm({
+  somePopup: popupEditAvatar,
+  callBack: (field, saveBtn) => {
+    saveBtn.textContent = 'Saving...';
+    api.patchAvatar(field)
+      .then(() => {
+        photoContainer.src = field.value;
+      })
+      .then(() => {
+        popupEditAvatarRenderer.close();
+        // saveBtn.textContent = 'Save';
+      })
+  }
+});
+popupEditAvatarRenderer.setEventListeners();
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 function createCard(item) {
   const card = new Card({
     cardData: item,
@@ -167,53 +256,123 @@ function createCard(item) {
     },
     handleBinClick: () => {
       popupDeleteRenderer.open();
-      popupDeleteYesButton.addEventListener('click', () => {
-        card._handleDeleteButton();
-        popupDeleteRenderer.close();
-      });
+      popupDeleteYesButton.onclick = () => {
+        api.delete(item._id)
+          .then(() => {
+            card._handleDeleteButton();
+            popupDeleteRenderer.close();
+          })
+      };
     },
-    blabla: (evt) => {
-      card._handleLikeButton(evt);
-    }
+    handleLikeClick: (evt) => {
+      evt.target.classList.toggle('card__like-btn_active');
+      fetch(`https://around.nomoreparties.co/v1/group-12/cards/likes/${item._id}`, {
+        method: 'PUT',
+        headers: {
+          authorization: "2f92e6f8-d3bf-4f0b-b7c9-ecb844a65d7b"
+        }
+      })
+        .then(res => res.json())
+        .then((res) => {
+          //if isLiked true => classList remove!!!!!!!!!!!!!!!!!!!!!!!!!
+          res.isLiked = true;
+          evt.target.classList.add('card__like-btn_active');
+          card.addLike();
+          // console.log(res);
+        })
+    },
+
+
+
+    // }
+
+    // card.addedLike();
+
   });
-  // card.blabla();
+
+  // card.addLike();
+
+  card.addDeleteButton();
   const cardElement = card.createCard();
   return cardElement
 }
 
 
 
+// 
 
 
-
-
-fetch("https://around.nomoreparties.co/v1/group-12/cards", {
-  method: 'GET',
-  headers: {
-    authorization: "2f92e6f8-d3bf-4f0b-b7c9-ecb844a65d7b"
-  }
-})
-  .then(res => res.json())
-  .then((bla) => {
-    fetch("https://around.nomoreparties.co/v1/group-12/users/me", {
-      method: 'GET',
-      headers: {
-        authorization: "2f92e6f8-d3bf-4f0b-b7c9-ecb844a65d7b"
-      }
-    })
-      .then(res => res.json())
-      .then((result) => {
-        bla.forEach((bl) => {
-          if (bl.owner._id === result._id) {
-            console.log(bl);
-          }
-        })
-      })
+api.getInitialCards()
+  .then((res) => {
+    console.log(res);
   })
 
+// api.renderMatchLike();  
+
+// fetch("https://around.nomoreparties.co/v1/group-12/cards", {
+//   method: 'GET',
+//   headers: {
+//     authorization: "2f92e6f8-d3bf-4f0b-b7c9-ecb844a65d7b"
+//   }
+// })
+//   .then(res => res.json())
+//   .then((bla) => {
+//     fetch("https://around.nomoreparties.co/v1/group-12/users/me", {
+//       method: 'GET',
+//       headers: {
+//         authorization: "2f92e6f8-d3bf-4f0b-b7c9-ecb844a65d7b"
+//       }
+//     })
+//       .then(res => res.json())
+//       .then((result) => {
+//         bla.forEach((bl) => {
+//           if (bl.owner._id === result._id) {
+//             bl.isMine = true;
+//           }
+//         });
+
+//       })
+//   })
 
 
 
+
+
+
+// fetch(`https://around.nomoreparties.co/v1/group-12/cards/${item._id}`, {
+//   headers: {
+//     authorization: "2f92e6f8-d3bf-4f0b-b7c9-ecb844a65d7b",
+//     "Content-Type": "application/json"
+//   }
+// })
+//   .then(res => {
+//       return res.json();
+//     })
+
+//   .then((card) => {
+//     return fetch("https://around.nomoreparties.co/v1/group-12/users/me", {
+//       method: 'GET',
+//       headers: {
+//         authorization: "2f92e6f8-d3bf-4f0b-b7c9-ecb844a65d7b"
+//       }
+//     })
+//       .then(res => res.json())
+//       .then((user) => {
+
+//           card.likes.forEach((like) => {
+//             // console.log(like._id);
+//             if (like._id === user._id) {
+//               // card.bla();
+//               console.log(like);
+//             }
+//           })
+//           // if (card.owner._id === user._id) {
+//           //   card.isMine = true;
+//           // }
+//           // cardRenderer.renderer(card)
+
+//       })
+//   });
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -221,33 +380,45 @@ fetch("https://around.nomoreparties.co/v1/group-12/cards", {
 const cardRenderer = new Section({
   // items: initialCards,
   renderer: (item) => {
-    const cardElement = createCard(item);
-    cardRenderer.addItem(cardElement);
+    // console.log(item.myNewCard);
+    if (item.myNewCard) {
+      const cardElement = createCard(item);
+      cardRenderer.addPrependItem(cardElement);
+    } else {
+      const cardElement = createCard(item);
+      cardRenderer.addAppendItem(cardElement);
+    }
   }
 }, cardsList);
 
-api.renderInitialCards();
-
 /////////////////////////////////////////////////////////////////////////////////////
 
-
+fetch("https://around.nomoreparties.co/v1/group-12/users/me", {
+  method: 'GET',
+  headers: {
+    authorization: "2f92e6f8-d3bf-4f0b-b7c9-ecb844a65d7b"
+  }
+})
+  .then(res => res.json())
+  .then((ava) => { console.log(ava) });
 
 
 const userInfoRenderer = new UserInfo(profileName, profileInfo);
 
 const editPopupBehavior = new PopupWithForm({
   somePopup: popupEdit,
-  callBack: () => {
+  callBack: (saveBtn) => {
+    saveBtn.textContent = 'Saving...';
     const editFields = editPopupBehavior.getInputValues();
 
     userInfoRenderer.setUserInfo(editFields);
-    api.patchProfileData(editFields);
-    editPopupBehavior.close();
+    api.patchProfileData(editFields)
+      .then(() => {
+        editPopupBehavior.close();
+      });
   }
 });
 editPopupBehavior.setEventListeners();
-
-
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -255,17 +426,20 @@ editPopupBehavior.setEventListeners();
 
 const addPopupBehavior = new PopupWithForm({
   somePopup: popupAdd,
-  callBack: () => {
+  callBack: (saveBtn) => {
+    saveBtn.textContent = 'Creating...';
     const addFields = addPopupBehavior.getInputValues();
-    const card = {};
-    card.name = addFields.placeTitle;
-    card.link = addFields.placeLink;
-    console.log(card);
+    const newCard = {};
+    newCard.name = addFields.placeTitle;
+    newCard.link = addFields.placeLink;
 
-    api.postNewCardData(card);
+    api.postNewCardData(newCard)
 
-    cardRenderer.renderer(card);
-    addPopupBehavior.close();
+      .then((card) => {
+        card.myNewCard = true;
+        cardRenderer.renderer(card);
+        addPopupBehavior.close();
+      })
   }
 });
 addPopupBehavior.setEventListeners();
@@ -280,15 +454,22 @@ editButton.addEventListener('click', () => {
   fieldAboutMe.value = userInfo.about;
   formValidators[popupEditForm.getAttribute('name')].resetValidation();
 
+  editPopupBehavior.switchBtnToSave();
   editPopupBehavior.open();
 });
 
 addButton.addEventListener('click', () => {
   formValidators[popupAddForm.getAttribute('name')].resetValidation();
+  addPopupBehavior.switchBtnToCreate();
   addPopupBehavior.open();
 });
 
-api.setNewProfileData();
+editAvatarBtn.addEventListener('click', () => {
+  formValidators[popupAddForm.getAttribute('name')].resetValidation();
+
+  popupEditAvatarRenderer.switchBtnToSave();
+  popupEditAvatarRenderer.open();
+});
 
 
 

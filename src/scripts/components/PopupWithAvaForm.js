@@ -1,40 +1,29 @@
 import { Popup } from "./Popup.js";
 
-export class PopupWithForm extends Popup {
+export class PopupWithAvaForm extends Popup {
   constructor({ somePopup, callBack }) {
     super(somePopup);
     this._callBack = callBack;
-    this._fields = this._popup.querySelectorAll('.popup__input');
+    this._field = this._popup.querySelector('.popup__input');
     this._popupForm = this._popup.querySelector('.popup__form');
     this._saveBtn = this._popup.querySelector('.popup__save-btn');
-  }
-  getInputValues() {
-    const fieldsList = {};
-    this._fields.forEach((field) => {
-      fieldsList[field.name] = field.value;
-    });
-    return fieldsList;
   }
 
   setEventListeners() {
     this._popup.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._callBack(this._saveBtn);
+      this._callBack(this._field, this._saveBtn);
     });
     super.setEventListeners();
+  }
+
+  switchBtnToSave() {
+    this._saveBtn.textContent = 'Save';
   }
 
   open() {
     super.setEventListeners();
     this._popup.classList.add('popup_opened');
-  }
-
-  switchBtnToCreate() {
-    this._saveBtn.textContent = 'Create';
-  }
-
-  switchBtnToSave() {
-    this._saveBtn.textContent = 'Save';
   }
 
   close() {

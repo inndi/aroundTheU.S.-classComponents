@@ -10,6 +10,10 @@ const popupEdit = body.querySelector('.popup_edit');
 const popupAdd = body.querySelector('.popup_add');
 const popupDelete = body.querySelector('.popup_delete');
 
+const photoContainer = document.querySelector('.profile__photo');
+const popupEditAvatar = document.querySelector('.popup_edit-photo');
+const editAvatarBtn = document.querySelector('.profile__edit-avatar-btn');
+
 const popupDeleteYesButton = popupDelete.querySelector('.popup__save-btn');
 
 const popupCard = document.querySelector('.popup_card');
@@ -21,6 +25,8 @@ const fieldAboutMe = popupEdit.querySelector('.popup__input_field_about-me');
 const popupAddForm = popupAdd.querySelector('.popup__form');
 
 const cardsList = body.querySelector('.cards__list');
+
+
 
 // const initialCards = [
 //   {
@@ -74,5 +80,8 @@ export {
   // initialCards,
   validationConfig,
   popupDelete,
-  popupDeleteYesButton
+  popupDeleteYesButton,
+  photoContainer,
+  popupEditAvatar,
+  editAvatarBtn
 };

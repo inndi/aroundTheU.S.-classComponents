@@ -13,7 +13,3 @@
   right: 15px;
   transition: opacity 0.2s linear;
 }
-
-.card__delete-btn_active {
-visibility: visible;
-}

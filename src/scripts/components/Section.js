@@ -16,7 +16,13 @@ export class Section {
   //     this.renderer(item);
   //   });
   // }
-  addItem(item) {
+  addPrependItem(item) {
     this._container.prepend(item);
+  }
+
+  addAppendItem(item) {
+
+    this._container.append(item);
+
   }
 };
