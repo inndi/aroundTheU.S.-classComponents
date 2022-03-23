@@ -12,6 +12,7 @@ const popupDelete = body.querySelector('.popup_delete');
 
 const photoContainer = document.querySelector('.profile__photo');
 const popupEditAvatar = document.querySelector('.popup_edit-photo');
+const popupEditAvaForm = popupEditAvatar.querySelector('.popup__form');
 const editAvatarBtn = document.querySelector('.profile__edit-avatar-btn');
 
 const popupDeleteYesButton = popupDelete.querySelector('.popup__save-btn');
@@ -53,5 +54,6 @@ export {
   popupDeleteYesButton,
   photoContainer,
   popupEditAvatar,
-  editAvatarBtn
+  editAvatarBtn,
+  popupEditAvaForm
 };

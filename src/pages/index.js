@@ -22,7 +22,8 @@ import {
   popupDeleteYesButton,
   photoContainer,
   popupEditAvatar,
-  editAvatarBtn
+  editAvatarBtn,
+  popupEditAvaForm
 } from '../scripts/utils/constants.js';
 
 import { FormValidator } from '../scripts/components/FormValidator.js';
@@ -47,7 +48,6 @@ const formValidators = {};
 
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
-
   formList.forEach((formElement) => {
     const validator = new FormValidator(config, formElement);
     const formName = formElement.getAttribute('name');
@@ -191,7 +191,7 @@ addButton.addEventListener('click', () => {
 });
 
 editAvatarBtn.addEventListener('click', () => {
-  formValidators[popupAddForm.getAttribute('name')].resetValidation();
+  formValidators[popupEditAvaForm.getAttribute('name')].resetValidation();
 
   popupEditAvatarRenderer.switchBtnToSave();
   popupEditAvatarRenderer.open();
