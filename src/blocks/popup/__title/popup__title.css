@@ -11,6 +11,10 @@
   line-height: 1;
 }
 
+.popup_edit-photo .popup__title{
+  line-height: 1;
+}
+
 @media screen and (max-width: 631px) {
   .popup__title {
     font-size: 18px;
