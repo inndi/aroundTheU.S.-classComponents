@@ -21,12 +21,6 @@ export class PopupWithAvaForm extends Popup {
     this._saveBtn.textContent = 'Save';
   }
 
-  // open() {
-  //   super.setEventListeners();
-  //   this._popup.classList.add('popup_opened');
-  // }
-
-
   close() {
     super.close();
     this._popupForm.reset();

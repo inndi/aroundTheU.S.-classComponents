@@ -24,12 +24,6 @@ export class PopupWithForm extends Popup {
     super.setEventListeners();
   }
 
-  // open() {
-  //   super.setEventListeners();
-  //   this._popup.classList.add('popup_opened');
-  // }
-
-
   switchBtnToCreate() {
     this._saveBtn.textContent = 'Create';
   }
