@@ -198,23 +198,20 @@ editAvatarBtn.addEventListener('click', () => {
 });
 
 const initApp = async () => {
-  const user = await api.getMyProfile()
+  const user = await api.getMyProfile();
 
-    .then((myProfile) => {
+  photoContainer.src = user.avatar;
+  profileName.textContent = user.name;
+  profileInfo.textContent = user.about;
 
-      photoContainer.src = myProfile.avatar;
-      profileName.textContent = myProfile.name;
-      profileInfo.textContent = myProfile.about;
-      api.getInitialCards()
-        .then((cards) => {
-          cards.forEach((card) => {
-            if (card.owner._id === myProfile._id) {
-              card.isMine = true;
-            }
-            cardRenderer.renderer(card)
-          });
-        })
-    })
+  const cards = await api.getInitialCards();
+
+  cards.forEach((card) => {
+    if (card.owner._id === user._id) {
+      card.isMine = true;
+    }
+    cardRenderer.renderer(card)
+  });
 };
 
 initApp();
