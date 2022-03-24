@@ -24,6 +24,8 @@ const fieldName = popupEdit.querySelector('.popup__input_field_name');
 const fieldAboutMe = popupEdit.querySelector('.popup__input_field_about-me');
 
 const popupAddForm = popupAdd.querySelector('.popup__form');
+const popupAddTitle = popupAdd.querySelector('.popup__input_field_title');
+const popupAddLink = popupAdd.querySelector('.popup__input_field_link');
 
 const cardsList = body.querySelector('.cards__list');
 
@@ -55,5 +57,7 @@ export {
   photoContainer,
   popupEditAvatar,
   editAvatarBtn,
-  popupEditAvaForm
+  popupEditAvaForm,
+  popupAddTitle,
+  popupAddLink
 };

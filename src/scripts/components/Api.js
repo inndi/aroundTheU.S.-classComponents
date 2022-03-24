@@ -4,34 +4,25 @@ export class Api {
     this._headers = fetchData.headers;
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);
+  }
+
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse);
   }
 
   getMyProfile() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse);
   }
 
   delete(cardId) {
@@ -39,15 +30,7 @@ export class Api {
       method: 'DELETE',
       headers: this._headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse);
   }
 
   postNewCardData(card) {
@@ -59,15 +42,7 @@ export class Api {
         link: card.link
       })
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse);
   }
 
   patchProfileData(editFields) {
@@ -79,15 +54,7 @@ export class Api {
         about: editFields.profileAbout
       })
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse);
   }
 
   patchAvatar(field) {
@@ -98,31 +65,15 @@ export class Api {
         avatar: field.value,
       })
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse);
   }
 
   removeLike(itemId) {
-    return fetch(`https://around.nomoreparties.co/v1/group-12/cards/likes/${itemId}`, {
+    return fetch(`${this._baseUrl}/cards/likes/${itemId}`, {
       method: 'DELETE',
       headers: this._headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse);
   }
 
   addLike(itemId) {
@@ -130,14 +81,6 @@ export class Api {
       method: 'PUT',
       headers: this._headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse);
   }
 }

@@ -34,8 +34,8 @@ export class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._setEventListeners();
-    this._addDeleteButtonToNewCard()
     this._handleLikeInitAmount();
+    this._addDeleteButton();
 
     return this._element;
   }
@@ -46,20 +46,22 @@ export class Card {
     this._cardImage.addEventListener('mousedown', this._handleCardClick);
   }
 
+  _updateLikes(likes) {
+    this._likesAmount.textContent = likes.length;
+    this._cardLikes = likes;
+  }
 
   addLike(likes) {
     this._likeButton.classList.add('card__like-btn_active');
-    this._likesAmount.textContent = likes.length;
-    this._cardLikes = likes;
+    this._updateLikes(likes);
   }
 
   removeLike(likes) {
     this._likeButton.classList.remove('card__like-btn_active');
-    this._likesAmount.textContent = likes.length;
-    this._cardLikes = likes;
+    this._updateLikes(likes);
   }
 
-  toggleLike(myId) {
+  isLiked(myId) {
     const isMyLike = this._cardLikes.some(like => like._id === myId);
     return isMyLike;
   }
@@ -68,23 +70,17 @@ export class Card {
     this._likesAmount.textContent = this._initialLikes;
   }
 
-  _addDeleteButtonToNewCard() {
-    if (this._myNewCard) {
+  _addDeleteButton() {
+    if (this._mineCard || this._myNewCard) {
       this._deleteButton.classList.add('card__delete-btn_active');
     }
   }
 
-  addDeleteButton() {
-    if (this._mineCard) {
-      this._deleteButton.classList.add('card__delete-btn_active');
-    }
-  }
-
-  _handleDeleteButton = () => {
+  handleDeleteButton = () => {
     this._element.remove();
   }
 
-  myLike(myId) {
+  checkLikes(myId) {
     this._cardLikes.forEach((like) => {
       if (like._id === myId) {
         this._likeButton.classList.add('card__like-btn_active');
