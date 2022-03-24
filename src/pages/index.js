@@ -39,10 +39,10 @@ import { FormValidator } from '../scripts/components/FormValidator.js';
 import { PopupWithImage } from '../scripts/components/PopupWithImages.js';
 import { Popup } from '../scripts/components/Popup.js';
 import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
+import { PopupWithBin } from "../scripts/components/PopupWithBin.js";
 import { UserInfo } from '../scripts/components/UserInfo.js';
 import { Card } from '../scripts/components/Card.js';
 import { Section } from "../scripts/components/Section.js";
-import { PopupWithAvaForm } from "../scripts/components/PopupWithAvaForm.js";
 import { Api } from "../scripts/components/Api.js";
 
 const api = new Api({
@@ -71,24 +71,9 @@ enableValidation(validationConfig);
 const popupCardRenderer = new PopupWithImage(popupCard);
 popupCardRenderer.setEventListeners();
 
-const popupDeleteRenderer = new Popup(popupDelete);
+const popupDeleteRenderer = new PopupWithBin(popupDelete);
 popupDeleteRenderer.setEventListeners();
 
-const popupEditAvatarRenderer = new PopupWithAvaForm({
-  somePopup: popupEditAvatar,
-  callBack: (field, saveBtn) => {
-    saveBtn.textContent = 'Saving...';
-    api.patchAvatar(field)
-      .then(() => {
-        photoContainer.src = field.value;
-        popupEditAvatarRenderer.close();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-});
-popupEditAvatarRenderer.setEventListeners();
 
 function createCard(item) {
   const card = new Card({
@@ -158,15 +143,36 @@ const cardRenderer = new Section({
   }
 }, cardsList);
 
-// const userInfoRenderer = new UserInfo(profileName, profileInfo);
+
+const popupEditAvatarRenderer = new PopupWithForm({
+  somePopup: popupEditAvatar,
+  callBack: () => {
+    const isLoading = true;
+    popupEditAvatarRenderer.renderLoading(isLoading, 'Saving...');
+    const fieldValue = popupEditAvatarRenderer.getInputValues();
+
+    api.patchAvatar(fieldValue)
+      .then((profile) => {
+        photoContainer.src = profile.avatar;
+        popupEditAvatarRenderer.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+});
+popupEditAvatarRenderer.setEventListeners();
+
+
 
 const editPopupBehavior = new PopupWithForm({
   somePopup: popupEdit,
-  callBack: (saveBtn) => {
-    saveBtn.textContent = 'Saving...';
+  callBack: () => {
+    const isLoading = true;
+    editPopupBehavior.renderLoading(isLoading, 'Saving...');
+
     const editFields = editPopupBehavior.getInputValues();
 
-    // userInfoRenderer.setUserInfo(editFields);
     api.patchProfileData(editFields)
       .then((user) => {
         userDataFields.name.textContent = user.name;
@@ -184,8 +190,10 @@ editPopupBehavior.setEventListeners();
 
 const addPopupBehavior = new PopupWithForm({
   somePopup: popupAdd,
-  callBack: (saveBtn) => {
-    saveBtn.textContent = 'Creating...';
+  callBack: () => {
+    const isLoading = true;
+    addPopupBehavior.renderLoading(isLoading, 'Creating...')
+
     const addFields = addPopupBehavior.getInputValues();
     const newCard = {};
     newCard.name = addFields.placeTitle;
@@ -194,6 +202,7 @@ const addPopupBehavior = new PopupWithForm({
     api.postNewCardData(newCard)
       .then((card) => {
         card.myNewCard = true;
+
         cardRenderer.renderer(card);
         addPopupBehavior.close();
       })
@@ -204,20 +213,8 @@ const addPopupBehavior = new PopupWithForm({
 });
 addPopupBehavior.setEventListeners();
 
-// editButton.addEventListener('click', () => {
-//   // const userInfo = userInfoRenderer.getUserInfo();
-
-//   // fieldName.value = userInfo.name;
-//   // fieldAboutMe.value = userInfo.about;
-//   formValidators[popupEditForm.getAttribute('name')].resetValidation();
-
-//   editPopupBehavior.switchBtnToSave();
-//   editPopupBehavior.open();
-// });
-
 addButton.addEventListener('click', () => {
   formValidators[popupAddForm.getAttribute('name')].resetValidation();
-  addPopupBehavior.switchBtnToCreate();
 
   popupAddTitle.value = '';
   popupAddLink.value = '';
@@ -227,14 +224,13 @@ addButton.addEventListener('click', () => {
 editAvatarBtn.addEventListener('click', () => {
   formValidators[popupEditAvaForm.getAttribute('name')].resetValidation();
 
-  popupEditAvatarRenderer.switchBtnToSave();
   popupEditAvatarRenderer.open();
 });
 
 editButton.addEventListener('click', () => {
   formValidators[popupEditForm.getAttribute('name')].resetValidation();
 
-  editPopupBehavior.switchBtnToSave();
+  // editPopupBehavior.switchBtnToSave();
   editPopupBehavior.open();
 });
 

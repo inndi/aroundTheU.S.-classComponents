@@ -62,7 +62,7 @@ export class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: field.value,
+        avatar: field.avatarLink,
       })
     })
       .then(this._checkResponse);
