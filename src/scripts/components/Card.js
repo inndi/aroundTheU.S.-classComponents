@@ -1,6 +1,6 @@
 export class Card {
 
-  constructor({ cardData, cardTemplate, handleCardClick, handleBinClick, handleLikeClick }) {
+  constructor({ cardData, userId, cardTemplate, handleCardClick, handleBinClick, handleLikeClick }) {
     this._name = cardData.name;
     this._link = cardData.link;
     this._handleCardClick = handleCardClick;
@@ -17,6 +17,7 @@ export class Card {
     this._myNewCard = cardData.myNewCard;
     this._cardLikes = cardData.likes;
     this._initialLikes = cardData.likes.length;
+    this._userId = userId;
   }
 
   _getTemplate() {
@@ -36,6 +37,7 @@ export class Card {
     this._setEventListeners();
     this._handleLikeInitAmount();
     this._addDeleteButton();
+    this._checkLikes();
 
     return this._element;
   }
@@ -61,8 +63,8 @@ export class Card {
     this._updateLikes(likes);
   }
 
-  isLiked(myId) {
-    const isMyLike = this._cardLikes.some(like => like._id === myId);
+  isLiked() {
+    const isMyLike = this._cardLikes.some(like => like._id === this._userId);
     return isMyLike;
   }
 
@@ -80,9 +82,9 @@ export class Card {
     this._element.remove();
   }
 
-  checkLikes(myId) {
+  _checkLikes() {
     this._cardLikes.forEach((like) => {
-      if (like._id === myId) {
+      if (like._id === this._userId) {
         this._likeButton.classList.add('card__like-btn_active');
       };
     })

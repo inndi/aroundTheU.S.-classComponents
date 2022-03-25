@@ -19,6 +19,8 @@ const popupDeleteYesButton = popupDelete.querySelector('.popup__save-btn');
 
 const popupCard = document.querySelector('.popup_card');
 
+const popupAvatarLink = popupEditAvatar.querySelector('.popup__input_field_link');
+
 const popupEditForm = popupEdit.querySelector('.popup__form');
 const fieldName = popupEdit.querySelector('.popup__input_field_name');
 const fieldAboutMe = popupEdit.querySelector('.popup__input_field_about-me');
@@ -59,5 +61,6 @@ export {
   editAvatarBtn,
   popupEditAvaForm,
   popupAddTitle,
-  popupAddLink
+  popupAddLink,
+  popupAvatarLink
 };
