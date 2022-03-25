@@ -19,6 +19,8 @@ export class PopupWithForm extends Popup {
     return fieldsList;
   }
 
+
+
   setEventListeners() {
     this._popup.addEventListener('submit', (evt) => {
       evt.preventDefault();
@@ -37,6 +39,6 @@ export class PopupWithForm extends Popup {
 
   close() {
     super.close();
-    // reset?
+    this._popupForm.reset();
   }
 }

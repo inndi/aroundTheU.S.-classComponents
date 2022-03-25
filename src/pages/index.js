@@ -24,9 +24,6 @@ import {
   popupEditAvatar,
   editAvatarBtn,
   popupEditAvaForm,
-  popupAddTitle,
-  popupAddLink,
-  popupAvatarLink
 } from '../scripts/utils/constants.js';
 
 const userDataFields = {};
@@ -38,9 +35,8 @@ userDataFields.popupFieldInfo = fieldAboutMe;
 
 import { FormValidator } from '../scripts/components/FormValidator.js';
 import { PopupWithImage } from '../scripts/components/PopupWithImages.js';
-import { Popup } from '../scripts/components/Popup.js';
 import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
-import { PopupWithBin } from "../scripts/components/PopupWithBin.js";
+import { ConfirmationPopup } from "../scripts/components/ConfirmationPopup.js";
 import { UserInfo } from '../scripts/components/UserInfo.js';
 import { Card } from '../scripts/components/Card.js';
 import { Section } from "../scripts/components/Section.js";
@@ -72,7 +68,7 @@ enableValidation(validationConfig);
 const popupCardRenderer = new PopupWithImage(popupCard);
 popupCardRenderer.setEventListeners();
 
-const popupDeleteRenderer = new PopupWithBin(popupDelete);
+const popupDeleteRenderer = new ConfirmationPopup(popupDelete);
 popupDeleteRenderer.setEventListeners();
 
 
@@ -86,16 +82,20 @@ function createCard(item, userId) {
     },
     handleBinClick: () => {
       popupDeleteRenderer.open();
-      popupDeleteYesButton.onclick = () => {
-        api.delete(item._id)
+
+      const onDelete = () => {
+        return api.delete(item._id)
           .then(() => {
             card.handleDeleteButton();
             popupDeleteRenderer.close();
+            popupDeleteYesButton.removeEventListener('click', onDelete)
           })
           .catch((err) => {
             console.log(err);
           });
-      };
+      }
+
+      popupDeleteYesButton.addEventListener('click', onDelete)
     },
     handleLikeClick: () => {
       const isMyLike = card.isLiked();
@@ -119,8 +119,6 @@ function createCard(item, userId) {
     },
 
   });
-
-  // card.checkLikes();
 
   const cardElement = card.createCard();
   return cardElement
@@ -154,7 +152,7 @@ const popupEditAvatarRenderer = new PopupWithForm({
         console.log(err);
       })
       .finally(function () {
-        popupEditAvatarRenderer.renderLoading(false, 'Saving...');
+        popupEditAvatarRenderer.renderLoading(false);
       });
   }
 });
@@ -181,7 +179,7 @@ const editPopupBehavior = new PopupWithForm({
         console.log(err);
       })
       .finally(function () {
-        editPopupBehavior.renderLoading(false, 'Creating...');
+        editPopupBehavior.renderLoading(false);
       });
 
   }
@@ -192,7 +190,7 @@ editPopupBehavior.setEventListeners();
 const addPopupBehavior = new PopupWithForm({
   somePopup: popupAdd,
   callBack: () => {
-    addPopupBehavior.renderLoading(true, 'Saving...');
+    addPopupBehavior.renderLoading(true, 'Creating...');
 
     const addFields = addPopupBehavior.getInputValues();
     const newCard = {};
@@ -210,7 +208,7 @@ const addPopupBehavior = new PopupWithForm({
         console.log(err);
       })
       .finally(function () {
-        addPopupBehavior.renderLoading(false, 'Creating...');
+        addPopupBehavior.renderLoading(false);
       });
   }
 });
@@ -219,21 +217,20 @@ addPopupBehavior.setEventListeners();
 addButton.addEventListener('click', () => {
   formValidators[popupAddForm.getAttribute('name')].resetValidation();
 
-  popupAddTitle.value = '';
-  popupAddLink.value = '';
   addPopupBehavior.open();
 });
 
 editAvatarBtn.addEventListener('click', () => {
   formValidators[popupEditAvaForm.getAttribute('name')].resetValidation();
 
-  popupAvatarLink.value = '';
   popupEditAvatarRenderer.open();
 });
 
 editButton.addEventListener('click', () => {
   formValidators[popupEditForm.getAttribute('name')].resetValidation();
 
+  userDataFields.popupFieldName.value = userDataFields.name.textContent;
+  userDataFields.popupFieldInfo.value = userDataFields.info.textContent;
   editPopupBehavior.open();
 });
 
