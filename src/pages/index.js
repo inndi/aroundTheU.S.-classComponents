@@ -70,6 +70,7 @@ popupCardRenderer.setEventListeners();
 const popupDeleteRenderer = new ConfirmationPopup(popupDelete);
 popupDeleteRenderer.setEventListeners();
 
+
 const userInfo = new UserInfo(userDataFields);
 
 
@@ -120,7 +121,6 @@ function createCard(item, userId) {
     },
 
   });
-
   const cardElement = card.createCard();
   return cardElement
 }
