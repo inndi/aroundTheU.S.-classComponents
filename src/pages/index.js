@@ -71,6 +71,8 @@ popupCardRenderer.setEventListeners();
 const popupDeleteRenderer = new ConfirmationPopup(popupDelete);
 popupDeleteRenderer.setEventListeners();
 
+const userInfo = new UserInfo(userDataFields);
+
 
 function createCard(item, userId) {
   const card = new Card({
@@ -144,8 +146,8 @@ const popupEditAvatarRenderer = new PopupWithForm({
     const fieldValue = popupEditAvatarRenderer.getInputValues();
 
     api.patchAvatar(fieldValue)
-      .then((profile) => {
-        photoContainer.src = profile.avatar;
+      .then((user) => {
+        userInfo.setUserInfo(user);
         popupEditAvatarRenderer.close();
       })
       .catch((err) => {
@@ -169,11 +171,8 @@ const editPopupBehavior = new PopupWithForm({
 
     api.patchProfileData(editFields)
       .then((user) => {
-        userDataFields.name.textContent = user.name;
-        userDataFields.info.textContent = user.about;
+        userInfo.setUserInfo(user);
         editPopupBehavior.close();
-        userDataFields.popupFieldName.value = user.name;
-        userDataFields.popupFieldInfo.value = user.about;
       })
       .catch((err) => {
         console.log(err);
@@ -229,16 +228,17 @@ editAvatarBtn.addEventListener('click', () => {
 editButton.addEventListener('click', () => {
   formValidators[popupEditForm.getAttribute('name')].resetValidation();
 
-  userDataFields.popupFieldName.value = userDataFields.name.textContent;
-  userDataFields.popupFieldInfo.value = userDataFields.info.textContent;
+  const userData = userInfo.getUserInfo();
+  userDataFields.popupFieldName.value = userData.name;
+  userDataFields.popupFieldInfo.value = userData.about;
+
   editPopupBehavior.open();
 });
 
 const initApp = async () => {
   const user = await api.getMyProfile();
 
-  const userInfoRenderer = new UserInfo(user, userDataFields);
-  userInfoRenderer.setUserInfo();
+  userInfo.setUserInfo(user);
 
   const cards = await api.getInitialCards();
 
@@ -249,5 +249,6 @@ const initApp = async () => {
     cardRenderer.renderer(card, user._id)
   });
 };
+
 
 initApp();
