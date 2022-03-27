@@ -15,8 +15,6 @@ const popupEditAvatar = document.querySelector('.popup_edit-photo');
 const popupEditAvaForm = popupEditAvatar.querySelector('.popup__form');
 const editAvatarBtn = document.querySelector('.profile__edit-avatar-btn');
 
-const popupDeleteYesButton = popupDelete.querySelector('.popup__save-btn');
-
 const popupCard = document.querySelector('.popup_card');
 
 const popupAvatarLink = popupEditAvatar.querySelector('.popup__input_field_link');
@@ -55,7 +53,6 @@ export {
   cardsList,
   validationConfig,
   popupDelete,
-  popupDeleteYesButton,
   photoContainer,
   popupEditAvatar,
   editAvatarBtn,

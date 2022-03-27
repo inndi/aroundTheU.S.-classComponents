@@ -19,7 +19,6 @@ import {
   cardsList,
   validationConfig,
   popupDelete,
-  popupDeleteYesButton,
   photoContainer,
   popupEditAvatar,
   editAvatarBtn,
@@ -90,14 +89,14 @@ function createCard(item, userId) {
           .then(() => {
             card.handleDeleteButton();
             popupDeleteRenderer.close();
-            popupDeleteYesButton.removeEventListener('click', onDelete)
+            popupDeleteRenderer.removeEventListeners(onDelete);
           })
           .catch((err) => {
             console.log(err);
           });
       }
 
-      popupDeleteYesButton.addEventListener('click', onDelete)
+      popupDeleteRenderer.setEventListeners(onDelete);
     },
     handleLikeClick: () => {
       const isMyLike = card.isLiked();
@@ -142,7 +141,7 @@ const cardRenderer = new Section({
 const popupEditAvatarRenderer = new PopupWithForm({
   somePopup: popupEditAvatar,
   callBack: () => {
-    popupEditAvatarRenderer.renderLoading(true, 'Saving...');
+    popupEditAvatarRenderer.renderLoading(true);
     const fieldValue = popupEditAvatarRenderer.getInputValues();
 
     api.patchAvatar(fieldValue)
@@ -165,7 +164,7 @@ popupEditAvatarRenderer.setEventListeners();
 const editPopupBehavior = new PopupWithForm({
   somePopup: popupEdit,
   callBack: () => {
-    editPopupBehavior.renderLoading(true, 'Saving...');
+    editPopupBehavior.renderLoading(true);
 
     const editFields = editPopupBehavior.getInputValues();
 

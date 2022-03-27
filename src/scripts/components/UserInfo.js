@@ -4,8 +4,6 @@ export class UserInfo {
     this._fieldName = userDataFields.name;
     this._fieldInfo = userDataFields.info;
     this._photoContainer = userDataFields.avatar;
-    this._popupFieldName = userDataFields.popupFieldName;
-    this._popupFieldInfo = userDataFields.popupFieldInfo;
   }
 
   getUserInfo() {

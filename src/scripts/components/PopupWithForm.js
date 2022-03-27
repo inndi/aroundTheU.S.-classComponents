@@ -29,7 +29,7 @@ export class PopupWithForm extends Popup {
     super.setEventListeners();
   }
 
-  renderLoading(isLoading, loadingText) {
+  renderLoading(isLoading, loadingText = 'Saving...') {
     if (isLoading) {
       this._saveBtn.textContent = loadingText;
     } else {
