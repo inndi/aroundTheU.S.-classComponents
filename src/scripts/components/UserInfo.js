@@ -10,7 +10,6 @@ export class UserInfo {
     const userInfoList = {};
     userInfoList.name = this._fieldName.textContent;
     userInfoList.about = this._fieldInfo.textContent;
-    console.log(userInfoList);
     return userInfoList;
   }
 
