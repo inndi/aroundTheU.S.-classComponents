@@ -90,7 +90,7 @@ function createCard(item, userId) {
           .then(() => {
             card.handleDeleteButton();
             popupDeleteRenderer.close();
-            popupDeleteRenderer.removeEventListeners(onDelete);
+            popupDeleteRenderer.removeEventListeners();
           })
           .catch((err) => {
             console.log(err);

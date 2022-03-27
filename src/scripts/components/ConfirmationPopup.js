@@ -21,7 +21,7 @@ export class ConfirmationPopup extends Popup {
     super.setEventListeners()
   }
 
-  removeEventListeners(onDelete) {
-    this._yesBtn.removeEventListener('click', onDelete);
+  removeEventListeners() {
+    this._yesBtn.removeEventListener('click', this._onDelete);
   }
 }
