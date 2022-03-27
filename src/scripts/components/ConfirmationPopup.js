@@ -8,7 +8,7 @@ export class ConfirmationPopup extends Popup {
   close() {
     super.close();
     if (this._onDelete) {
-      this.removeEventListeners(this._onDelete);
+      this.removeEventListeners();
       this._onDelete = null;
     }
   }
