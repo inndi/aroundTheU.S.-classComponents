@@ -83,21 +83,20 @@ function createCard(item, userId) {
       popupCardRenderer.open(item);
     },
     handleBinClick: () => {
-      popupDeleteRenderer.open();
+
 
       const onDelete = () => {
         return api.delete(item._id)
           .then(() => {
             card.handleDeleteButton();
             popupDeleteRenderer.close();
-            popupDeleteRenderer.removeEventListeners();
           })
           .catch((err) => {
             console.log(err);
           });
       }
+      popupDeleteRenderer.open(onDelete);
 
-      popupDeleteRenderer.setEventListeners(onDelete);
     },
     handleLikeClick: () => {
       const isMyLike = card.isLiked();
@@ -250,4 +249,8 @@ const initApp = async () => {
 };
 
 
-initApp();
+try {
+  initApp();
+} catch (error) {
+  console.log(error);
+}
