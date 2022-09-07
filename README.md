@@ -13,6 +13,7 @@
 * open the card for detailed view.
 
 Suitable for gadgets with any resolution.
+Built with class components.
 
 ## Technologies used:
 
